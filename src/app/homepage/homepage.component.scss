@@ -1,0 +1,224 @@
+mat-toolbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000; /* Ensure it stays above other content */
+}
+
+body {
+  padding-top: 90px; // Adjust based on header height
+  margin: 0;
+  width: 100%; // Ensure body takes full width
+  height:100%;
+  display: flex;
+  flex-direction: column; // Align children (containers) vertically
+  align-items: center; // Center-align the child containers
+  min-height:100%;
+}
+
+html {
+  height:100%;
+  width: 100%;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.account-actions a {
+  margin-right: 8px;
+}
+
+/* Ensure the links next to the logo align properly */
+a.mat-button {
+  margin-right: 16px; /* Adjust spacing between buttons if necessary */
+}
+
+.container {
+  display: flex;
+  justify-content: left;
+  width: 100%;
+}
+mat-card {
+  flex: 0 0 25%;
+  margin-left: 10%;
+  margin-top: 5%;
+}
+
+mat-form-field {
+  width: 100%; /* Full width fields */
+  margin-bottom: 16px; /* Space between fields and button */
+}
+
+button {
+  margin-top: 20px; /* Space above the button */
+}
+
+.job-category-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); // Creates exactly four columns
+  gap: 10px; // Controls the spacing between the grid items
+  justify-content: center; // Ensures the grid itself is centered within its container
+  padding: 20px;
+  max-width: 1280px; // Limits the maximum width to ensure items don't stretch too far
+  margin: 0 auto; // Centers the grid container within its parent
+}
+
+
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Ensures everything in this container is centered
+  justify-content: center;
+  width: 100%;
+  max-width: 1280px;
+  margin: 3% auto 0;
+  flex:1;
+}
+
+.category-card {
+  width: 250px; // Set a fixed width for each card
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  background: #FFF; // Background color
+  box-shadow: none; // No shadow
+
+  img {
+    width: 100%;
+    height: auto;
+    max-height: 120px;
+  }
+
+  .category-title {
+    font-weight: bold;
+    margin-top: 8px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px; // Adjust as needed
+  }
+
+  li {
+    font-size: 0.85em;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.category-header {
+  text-align: center; // Center the text within the header
+  padding: 20px 0; // Add some vertical padding for spacing
+
+  h2 {
+    font-size: 2em; // Large font size for the title
+    color: #333; // Dark color for visibility
+    margin: 0 0 10px 0; // Space between the title and the description
+  }
+
+  p {
+    font-size: 1em; // Appropriate font size for the descriptive text
+    color: #666; // Lighter color for the descriptive text
+  }
+}
+
+.promoted-jobs-section {
+  width: 100%;
+  background-color: #f7f7f7; // Very light gray background
+  padding: 40px 20px;
+  box-sizing: border-box;
+  text-align: center;
+
+  .promoted-jobs-header {
+    margin-bottom: 30px;
+
+    h2 {
+      font-size: 2em;
+      color: #333; // Dark color for the title
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1em;
+      color: #666; // Light gray for the descriptive text
+    }
+  }
+
+  .promoted-jobs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); // Adjust min width to fit cards
+    gap: 15px;
+    justify-content: center;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .promoted-job-card {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Light shadow
+    border-radius: 8px; // Rounded corners
+    padding: 20px;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); // Increased shadow on hover
+      transform: translateY(-5px); // Lift card on hover
+    }
+
+    .promoted-job-date {
+      font-size: 0.8em;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .promoted-job-logo {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .promoted-job-title {
+      font-size: 1em;
+      color: #333;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .promoted-job-company {
+      font-size: 0.85em;
+      color: #666;
+    }
+  }
+}
+
+.site-footer {
+  width: 100%;
+  padding: 20px 0;
+  background-color: #f1f1f1; // Light grey background; adjust as needed
+  text-align: center; // Center the text within the footer
+  box-sizing: border-box;
+  position: relative;
+  bottom: 0;
+  left: 0;
+
+  p {
+    margin: 0; // Removes default margin from the paragraph for cleaner spacing
+    color: #333; // Sets the text color; adjust as needed
+    font-size: 0.9em; // Sets a smaller font size for the footer text
+  }
+}
+
+
+

@@ -1,0 +1,90 @@
+<!-- Header Component -->
+<mat-toolbar [color]="isScrolled ? 'accent' : 'primary'">
+  <span>
+    <a href="/" mat-button>
+      <!-- Logo and home link -->
+      <img src="assets/logo.png" alt="Logo" style="height: 40px;">
+    </a>
+    <!-- Navigation Link moved next to the logo -->
+    <a mat-button href="#jobs">Joburi</a>
+  </span>
+  <span class="spacer"></span>
+  <!-- Right-side Links -->
+  <span class="account-actions">
+    <a mat-button href="#new-account">Cont nou</a>
+    <a mat-button href="#login">Intra în cont</a>
+  </span>
+</mat-toolbar>
+<body>
+<div class="container">
+  <mat-card>
+    <mat-card-content>
+      <form>
+        <mat-form-field appearance="fill">
+          <mat-label>Cuvinte cheie</mat-label>
+          <input matInput placeholder="Cuvinte cheie">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Oraș</mat-label>
+          <input matInput placeholder="Oraș">
+        </mat-form-field>
+
+        <button mat-raised-button color="warn" style="width: 100%;">Caută job</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div class="main-container">
+  <div class="category-header">
+    <h2>Alege-ți jobul în funcție de industrie</h2>
+    <p>21.717 joburi disponibile</p> <!-- Update dynamically if needed -->
+  </div>
+  <div class="job-category-container">
+    <div *ngFor="let category of categories" class="category-card">
+      <img [src]="category.image" alt="{{ category.name }}">
+      <div class="category-title">{{ category.name }}</div>
+      <ul>
+        <li *ngFor="let job of category.jobs">{{ job }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="main-container">
+  <div class="category-header">
+    <h2>Alege-ți jobul în funcție de industrie</h2>
+    <p>21.717 joburi disponibile</p> <!-- Update dynamically if needed -->
+  </div>
+  <div class="job-category-container">
+    <div *ngFor="let category of categories" class="category-card">
+      <img [src]="category.image" alt="{{ category.name }}">
+      <div class="category-title">{{ category.name }}</div>
+      <ul>
+        <li *ngFor="let job of category.jobs">{{ job }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="promoted-jobs-section">
+  <!-- Header for the Promoted Jobs Section -->
+  <div class="promoted-jobs-header">
+    <h2>Anunțuri de angajare promovate</h2>
+    <p>Locuri de muncă în 42 de domenii. Descoperă cele mai noi joburi!</p>
+  </div>
+
+  <!-- Promoted Jobs Cards Grid -->
+  <div class="promoted-jobs-grid">
+    <div class="promoted-job-card" *ngFor="let job of promotedJobs">
+      <div class="promoted-job-date">{{ job.date | date: 'dd MMM yyyy' }}</div>
+      <img [src]="job.logo" alt="{{ job.company }}" class="promoted-job-logo">
+      <div class="promoted-job-title">{{ job.title }}</div>
+      <div class="promoted-job-company">{{ job.company }}</div>
+    </div>
+  </div>
+</div>
+<footer class="site-footer">
+  <p>All rights reserved to licenta-poli</p>
+</footer>
+</body>
+
+

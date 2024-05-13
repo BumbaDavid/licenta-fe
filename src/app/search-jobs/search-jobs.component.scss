@@ -1,0 +1,59 @@
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+}
+
+.filters, .job-listings {
+  padding: 20px;
+}
+
+.job-listings {
+  flex-grow: 1;
+}
+
+.mat-card {
+  margin-bottom: 20px;
+}
+.job-card {
+  margin-bottom: 20px;
+  margin-right: 15%;
+  margin-left: 5%;
+  .mat-card-header {
+    align-items: center; // Center title and subtitle vertically
+  }
+  .mat-card-title {
+    font-size: 1.2rem; // Larger font size for title
+  }
+  .mat-card-subtitle {
+    font-size: 1rem; // Standard font size for subtitle
+    color: grey; // Grey color for company and location
+  }
+  .mat-chip {
+    margin: 5px 0;
+  }
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end; // Align buttons to the right
+    button {
+      margin-left: 8px;
+    }
+  }
+}
+
+.filters {
+  width: 20%; /* Adjust the width of the filter section as per your layout */
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between each filter card */
+}
+
+.filter-card {
+  padding: 16px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}

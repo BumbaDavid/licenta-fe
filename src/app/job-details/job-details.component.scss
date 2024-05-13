@@ -1,0 +1,48 @@
+.job-details-container {
+  display: flex;
+  align-items: flex-start; // Aligns items at the top
+  justify-content: center;
+  padding: 20px;
+  gap: 20px; // Space between side cards and main card
+
+
+  .side-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; // Space between each small card
+  }
+
+  .small-card {
+    width: 200px; // Fixed width for side cards
+  }
+
+  .main-card {
+    margin-left: 3%;
+    flex-grow: 1; // Main card takes up the rest of the space
+    max-width: 800px; // Maximum width of the main card
+  }
+
+  .spacer {
+    height: 20px; // Adds vertical space between sections
+  }
+}
+
+@media (max-width: 768px) {
+  .job-details-container {
+    flex-direction: column;
+    align-items: center; // Center aligns the cards vertically on small screens
+
+    .side-cards {
+      flex-direction: row;
+      overflow-x: auto; // Allows side cards to scroll horizontally on small screens
+    }
+
+    .small-card {
+      width: 100%; // Full width for mobile view
+    }
+
+    .main-card {
+      max-width: 100%; // Allows the main card to take full width
+    }
+  }
+}
