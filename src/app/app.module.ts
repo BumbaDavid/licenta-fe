@@ -11,6 +11,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { SearchJobsComponent } from './search-jobs/search-jobs.component';
 import { JobDetailsComponent } from './job-details/job-details.component';
 import { UserAccountComponent } from './user-account/user-account.component';
+import {HttpClientModule} from "@angular/common/http";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 @NgModule({
   declarations: [
@@ -21,12 +23,13 @@ import { UserAccountComponent } from './user-account/user-account.component';
     JobDetailsComponent,
     UserAccountComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        HttpClientModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

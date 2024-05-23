@@ -9,6 +9,8 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatSelectModule} from "@angular/material/select";
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import {MatChipsModule} from "@angular/material/chips";
+import {MatIconModule} from "@angular/material/icon";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 
 const MaterialComponent =[
@@ -22,7 +24,9 @@ const MaterialComponent =[
   MatSelectModule,
   ScrollingModule,
   FormsModule,
-  MatChipsModule
+  MatChipsModule,
+  MatIconModule,
+  MatExpansionModule
 ];
 
 @NgModule({

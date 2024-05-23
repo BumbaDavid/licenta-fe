@@ -42,6 +42,11 @@
   }
 }
 
+.profile-actions-button {
+  button {
+    margin-right: 10px;
+  }
+}
 @media (max-width: 768px) {
   .account-container {
     grid-template-columns: 1fr; // Stack columns on smaller screens

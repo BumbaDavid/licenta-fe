@@ -1,5 +1,7 @@
 import { Input, Component, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import {AuthService} from "../services/auth.service";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,14 +13,22 @@ export class LoginComponent  {
     password: new FormControl(''),
   });
 
-  submit() {
-    if (this.form.valid) {
-      this.submitEM.emit(this.form.value);
-      console.log(this.form.value.username);
-      console.log(this.form.value.password);
-    }
-  }
   @Input() error: string | null | undefined;
 
   @Output() submitEM = new EventEmitter();
+  constructor(private authService: AuthService, private router: Router) {
+  }
+  submit() {
+    if (this.form.valid) {
+      const { username, password } = this.form.value;
+      this.authService.login(username, password).subscribe(
+        apiKey => {
+          localStorage.setItem('api_key', apiKey);
+          this.router.navigate(['/homepage']).then(() => {
+            console.log('navigation to route successful');
+          });
+
+        });
+    }
+  }
 }

@@ -14,77 +14,78 @@
     <div class="spacer"></div>
 
     <!-- Group of Bottom Buttons -->
-    <button mat-raised-button (click)="changeTab(tab.CLOSE_ACCOUNT) "color="warn">Close Account</button>
-    <button mat-raised-button color="warn">Log-out</button>
+    <button mat-raised-button (click)="changeTab(tab.CLOSE_ACCOUNT)" color="warn">Close Account</button>
+    <button mat-raised-button (click)="logout()" color="warn">Log-out</button>
   </div>
 
   <div class="content-column">
     <!-- PROFILE TAB -->
-    <form *ngIf="openedTab === tab.PROFILE" class="example-form">
+    <form *ngIf="openedTab === tab.PROFILE" class="example-form" [formGroup]="profileForm">
       <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Company (disabled)</mat-label>
-        <input matInput disabled value="Google">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username">
       </mat-form-field>
 
       <table class="example-full-width" ><tr>
         <td><mat-form-field class="example-full-width" appearance="outline">
           <mat-label>First name</mat-label>
-          <input matInput>
+          <input matInput formControlName="first_name">
         </mat-form-field></td>
-        <td><mat-form-field class="example-full-width">
-          <mat-label>Long Last Name That Will Be Truncated</mat-label>
-          <input matInput>
+        <td><mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Last name</mat-label>
+          <input matInput formControlName="last_name">
+        </mat-form-field></td>
+        <td><mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Age</mat-label>
+          <input matInput formControlName="age">
         </mat-form-field></td>
       </tr></table>
-      <p>
-        <mat-form-field class="example-full-width">
-          <mat-label>Address</mat-label>
-          <textarea matInput placeholder="Ex. 100 Main St">1600 Amphitheatre Pkwy</textarea>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="legacy">
+          <mat-label>Phone number</mat-label>
+          <mat-icon matSuffix>phone</mat-icon>
+          <input matInput formControlName="phone_number">
         </mat-form-field>
         <mat-form-field class="example-full-width">
-          <mat-label>Address 2</mat-label>
-          <textarea matInput></textarea>
-        </mat-form-field>
-      </p>
-      <table class="example-full-width" ><tr>
-        <td><mat-form-field class="example-full-width">
           <mat-label>City</mat-label>
-          <input matInput placeholder="Ex. San Francisco">
-        </mat-form-field></td>
-        <td><mat-form-field class="example-full-width">
-          <mat-label>State</mat-label>
-          <input matInput placeholder="Ex. California">
-        </mat-form-field></td>
-        <td><mat-form-field class="example-full-width">
-          <mat-label>Postal Code</mat-label>
-          <input matInput #postalCode maxlength="5" placeholder="Ex. 94105" value="94043">
-          <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-        </mat-form-field></td>
-      </tr></table>
+          <textarea matInput formControlName="address"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Date Joined</mat-label>
+          <input matInput formControlName="date_joined">
+        </mat-form-field>
+        <div class="profile-actions-button">
+          <button mat-flat-button color="primary" (click)="editProfile()">Edit profile</button>
+          <button mat-flat-button color="accent" [disabled]="!hasChanges()" (click)="updateProfile()">Update profile</button>
+        </div>
     </form>
 
     <!-- CV TAB -->
     <form *ngIf="openedTab === tab.CV" class="example-form">
-      <table class="example-full-width" ><tr>
-        <td><mat-form-field class="example-full-width" appearance="outline">
-          <mat-label>First name</mat-label>
-          <input matInput>
-        </mat-form-field></td>
-        <td><mat-form-field class="example-full-width">
-          <mat-label>Long Last Name That Will Be Truncated</mat-label>
-          <input matInput>
-        </mat-form-field></td>
-      </tr></table>
-      <p>
-        <mat-form-field class="example-full-width">
-          <mat-label>Address</mat-label>
-          <textarea matInput placeholder="Ex. 100 Main St">1600 Amphitheatre Pkwy</textarea>
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <mat-label>Address 2</mat-label>
-          <textarea matInput></textarea>
-        </mat-form-field>
-      </p>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let category of cvCategories">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ category.title }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div *ngFor="let item of category.items">
+            {{ item }}
+            <button mat-mini-fab color="primary" (click)="editItem(item, category.key)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-mini-fab color="warn" (click)="deleteItem(item, category.key)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <button mat-button (click)="addItem(category.key)">Add New</button>
+        </mat-expansion-panel>
+      </mat-accordion>
     </form>
     <!-- JOB_REQUESTS TAB -->
     <div *ngIf="openedTab === tab.JOB_REQUESTS">

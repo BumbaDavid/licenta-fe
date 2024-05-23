@@ -5,13 +5,15 @@ import {HomepageComponent} from "./homepage/homepage.component";
 import {SearchJobsComponent} from "./search-jobs/search-jobs.component";
 import {JobDetailsComponent} from "./job-details/job-details.component";
 import {UserAccountComponent} from "./user-account/user-account.component";
+import {AuthGuard} from "./guards/auth.guard";
 
 const routes: Routes = [
   { path : 'login', component: LoginComponent},
   { path : 'homepage', component: HomepageComponent},
   { path : 'search-jobs', component: SearchJobsComponent},
   { path : 'job-details', component: JobDetailsComponent},
-  { path : 'account', component: UserAccountComponent}
+  { path : 'account', component: UserAccountComponent, canActivate: [AuthGuard]},
+  { path : '', redirectTo: '/homepage', pathMatch: 'full'}
 ];
 
 @NgModule({
