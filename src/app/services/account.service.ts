@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, of} from "rxjs";
+import {handleError} from "../../handle-error";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class AccountService {
         'Authorization': apiKey
       });
       return this.http.get<any>(this.userDataUrl, { headers }).pipe(
-        catchError(this.handleError<any>('getUserData'))
+        catchError(handleError<any>('getUserData'))
       )
     } else {
       return of();
@@ -32,17 +33,11 @@ export class AccountService {
         'Authorization': apiKey
       })
       return this.http.post<any>(this.updateUserUrl, data, {headers}).pipe(
-        catchError(this.handleError<any>('updateUserData'))
+        catchError(handleError<any>('updateUserData'))
       )
     } else {
       return of();
     }
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    }
-  }
 }

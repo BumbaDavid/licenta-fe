@@ -3,6 +3,10 @@ import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
 import {AccountService} from "../services/account.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {CVCategories, ExportData} from "../models/models";
+import {AddItemDialogComponent} from "./add-item-dialog/add-item-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {UserCvService} from "../services/user-cv.service";
 
 export enum Tab {
   PROFILE, CV, JOB_REQUESTS, CLOSE_ACCOUNT
@@ -22,8 +26,10 @@ export class UserAccountComponent implements OnInit {
   openedTab: Tab | undefined;
   constructor(private authService: AuthService,
               private accountService: AccountService,
+              private userCVServic: UserCvService,
               private router: Router,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private dialog: MatDialog) {
     this.profileForm = this.fb.group({
       username: [{value: '', disabled: true}],
       first_name: [{value: '', disabled: true}],
@@ -37,12 +43,14 @@ export class UserAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.openedTab = Tab.PROFILE;
+    const lastTab = localStorage.getItem('lastOpenedTab')
+    this.openedTab = lastTab ? Number(lastTab) : Tab.PROFILE;
     this.getUserData();
   }
 
   changeTab(newTab: Tab) {
       this.openedTab = newTab;
+      localStorage.setItem('lastOpenedTab', newTab.toString());
   }
 
   logout() {
@@ -69,6 +77,9 @@ export class UserAccountComponent implements OnInit {
         age: data?.user?.age
       })
       this.initialFormValues = this.profileForm.getRawValue();
+      this.updateUserCVCategories(data)
+
+      console.log(this.cvCategories)
       console.log(this.initialFormValues)
     },
      error: error => console.error('error fetching data', error)
@@ -79,6 +90,7 @@ export class UserAccountComponent implements OnInit {
     const currentFormValues = this.profileForm.getRawValue();
     return JSON.stringify(this.initialFormValues) !== JSON.stringify(currentFormValues);
   }
+
   editProfile() {
     this.isEditing = true;
     this.profileForm.enable();
@@ -112,15 +124,54 @@ export class UserAccountComponent implements OnInit {
     }
   }
 
-  addItem(categoryKey: string): void {
-    // Implementation to add an item to a category
+  addNewEntryToCVProfileField(category: string, currentEntry?: string): void {
+    const dialogRef = this.dialog.open(AddItemDialogComponent, {
+      width: '300px',
+      data: { category: category, currentEntry: currentEntry }
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(result)
+        this.userCVServic.updateUserCV(result).subscribe({
+          next: data => {
+            this.updateUserCVCategories(data)
+            this.getUserData()
+          },
+          error: error => console.error("error updating data", error)
+        });
+      }
+    });
   }
 
   editItem(item: string, categoryKey: string): void {
     // Implementation to edit an existing item
   }
 
-  deleteItem(index: number, categoryKey: string): void {
-    // Implementation to remove an item from a category
+  deleteItem(categoryEntry: string, categoryTitle: string): void {
+    let entryToDelete: ExportData = {
+      action: 'delete',
+      data: {
+        [categoryTitle] : [categoryEntry]
+      }
+    }
+    if(entryToDelete) {
+      this.userCVServic.deleteCVEntry(entryToDelete).subscribe({
+        next: data => {
+          this.updateUserCVCategories(data)
+          this.getUserData()
+        },
+        error: error => console.error("error updating data", error)
+      });
+    }
+  }
+
+  updateUserCVCategories(data: any) {
+    if(data?.user_cv && typeof data.user_cv === 'object'){
+      this.cvCategories = Object.keys(data.user_cv).map(key => ({
+        title:key,
+        items: data.user_cv[key]
+      }));
+    }
+    console.log(this.cvCategories)
   }
 }

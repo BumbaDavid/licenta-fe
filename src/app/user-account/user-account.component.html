@@ -74,16 +74,16 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
 
-          <div *ngFor="let item of category.items">
-            {{ item }}
-            <button mat-mini-fab color="primary" (click)="editItem(item, category.key)">
+          <div *ngFor="let entryCategory of category.items">
+            {{ entryCategory }}
+            <button mat-mini-fab color="primary" (click)="addNewEntryToCVProfileField(category.title, entryCategory)">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-mini-fab color="warn" (click)="deleteItem(item, category.key)">
+            <button mat-mini-fab color="warn" (click)="deleteItem(entryCategory, category.title)">
               <mat-icon>delete</mat-icon>
             </button>
           </div>
-          <button mat-button (click)="addItem(category.key)">Add New</button>
+          <button mat-button (click)="addNewEntryToCVProfileField(category.title)">Add New</button>
         </mat-expansion-panel>
       </mat-accordion>
     </form>

@@ -11,6 +11,7 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatIconModule} from "@angular/material/icon";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 const MaterialComponent =[
@@ -26,7 +27,8 @@ const MaterialComponent =[
   FormsModule,
   MatChipsModule,
   MatIconModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatDialogModule
 ];
 
 @NgModule({

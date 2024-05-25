@@ -47,3 +47,19 @@ export interface CompanyDetails {
   description: string;
   job_offers: JobOffers[];
 }
+
+export interface CVCategories {
+  studies: string[];
+  experience: string[];
+  abilities: string[];
+  languages: string[];
+  hobbies: string[];
+}
+
+export interface ExportData {
+  action: string;
+  data:{
+    [key : string] : string[] | { oldValue: string | undefined, newValue: string | undefined };
+  };
+
+}

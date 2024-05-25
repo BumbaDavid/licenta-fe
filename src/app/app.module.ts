@@ -13,6 +13,7 @@ import { JobDetailsComponent } from './job-details/job-details.component';
 import { UserAccountComponent } from './user-account/user-account.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MatExpansionModule} from "@angular/material/expansion";
+import { AddItemDialogComponent } from './user-account/add-item-dialog/add-item-dialog.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
     HomepageComponent,
     SearchJobsComponent,
     JobDetailsComponent,
-    UserAccountComponent
+    UserAccountComponent,
+    AddItemDialogComponent
   ],
     imports: [
         BrowserModule,
