@@ -3,7 +3,7 @@ import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
 import {AccountService} from "../services/account.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {CVCategories, ExportData} from "../models/models";
+import { ExportData} from "../models/models";
 import {AddItemDialogComponent} from "./add-item-dialog/add-item-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {UserCvService} from "../services/user-cv.service";
@@ -26,7 +26,7 @@ export class UserAccountComponent implements OnInit {
   openedTab: Tab | undefined;
   constructor(private authService: AuthService,
               private accountService: AccountService,
-              private userCVServic: UserCvService,
+              private userCVService: UserCvService,
               private router: Router,
               private fb: FormBuilder,
               private dialog: MatDialog) {
@@ -132,7 +132,7 @@ export class UserAccountComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         console.log(result)
-        this.userCVServic.updateUserCV(result).subscribe({
+        this.userCVService.updateUserCV(result).subscribe({
           next: data => {
             this.updateUserCVCategories(data)
             this.getUserData()
@@ -143,10 +143,6 @@ export class UserAccountComponent implements OnInit {
     });
   }
 
-  editItem(item: string, categoryKey: string): void {
-    // Implementation to edit an existing item
-  }
-
   deleteItem(categoryEntry: string, categoryTitle: string): void {
     let entryToDelete: ExportData = {
       action: 'delete',
@@ -155,7 +151,7 @@ export class UserAccountComponent implements OnInit {
       }
     }
     if(entryToDelete) {
-      this.userCVServic.deleteCVEntry(entryToDelete).subscribe({
+      this.userCVService.deleteCVEntry(entryToDelete).subscribe({
         next: data => {
           this.updateUserCVCategories(data)
           this.getUserData()

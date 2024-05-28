@@ -1,0 +1,64 @@
+.account-container {
+  margin-top: 2%;
+  display: grid;
+  grid-template-columns: 20% 80%; // 20% for buttons, 80% for content
+  width: 100%;
+
+  .button-column {
+    display: grid;
+    grid-template-rows: auto 1fr auto; // Top buttons, flexible spacer, bottom buttons
+    gap: 10px; // Spacing between buttons
+
+    .spacer {
+      margin-top: 100%;
+      flex-grow: 1;
+    }
+
+    button {
+      justify-self: center;
+      width: 50%; // Ensure buttons fill the column
+    }
+  }
+
+  .content-column {
+    background-color: #eae9e9; // For visual differentiation, can be removed or changed
+
+    .example-form {
+      margin-top: 5%;
+      margin-left: 3%;
+      min-width: 150px;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .example-full-width {
+      width: 100%;
+    }
+
+    td {
+      padding-right: 8px;
+    }
+
+  }
+}
+
+.profile-actions-button {
+  button {
+    margin-right: 10px;
+  }
+}
+@media (max-width: 768px) {
+  .account-container {
+    grid-template-columns: 1fr; // Stack columns on smaller screens
+    grid-template-rows: auto auto 1fr; // Re-order elements: top buttons, bottom buttons, content
+
+    .button-column {
+      grid-template-rows: repeat(5, auto); // All buttons in a single flow
+      order: 1; // Ensure buttons come first
+    }
+
+    .content-column {
+      order: 2; // Content follows buttons
+    }
+  }
+}

@@ -14,6 +14,7 @@ import { UserAccountComponent } from './user-account/user-account.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MatExpansionModule} from "@angular/material/expansion";
 import { AddItemDialogComponent } from './user-account/add-item-dialog/add-item-dialog.component';
+import { CompanyAccountComponent } from './company-account/company-account.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AddItemDialogComponent } from './user-account/add-item-dialog/add-item-
     SearchJobsComponent,
     JobDetailsComponent,
     UserAccountComponent,
-    AddItemDialogComponent
+    AddItemDialogComponent,
+    CompanyAccountComponent
   ],
     imports: [
         BrowserModule,

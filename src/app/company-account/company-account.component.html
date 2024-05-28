@@ -1,0 +1,66 @@
+<!-- Header Component -->
+<mat-toolbar color="primary">
+  <!-- Empty as specified -->
+</mat-toolbar>
+
+<div class="account-container">
+  <div class="button-column">
+    <!-- Group of Top Buttons -->
+    <button mat-raised-button (click)="changeTab(tab.PROFILE)" color="primary">Profile</button>
+    <button mat-raised-button (click)="changeTab(tab.JOBS_OFFERS)" color="primary">Job Offers</button>
+    <button mat-raised-button (click)="changeTab(tab.JOB_OFFER_CREATION)" color="primary">Create Job Offers</button>
+
+    <!-- Spacer for pushing bottom buttons down -->
+    <div class="spacer"></div>
+
+    <!-- Group of Bottom Buttons -->
+    <button mat-raised-button color="warn">Close Account</button>
+    <button mat-raised-button (click)="logout()" color="warn">Log-out</button>
+  </div>
+
+  <div class="content-column">
+    <!-- PROFILE TAB -->
+    <form *ngIf="openedTab === tab.PROFILE" class="example-form" [formGroup]="companyDetailsForm">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Company name</mat-label>
+        <input matInput formControlName="company_name">
+      </mat-form-field>
+
+      <table class="example-full-width" ><tr>
+        <td><mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field></td>
+        <td><mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Phone number</mat-label>
+          <input matInput formControlName="phone">
+        </mat-form-field></td>
+      </tr></table>
+
+      <mat-form-field class = "example-full-width">
+        <mat-label>Company description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Date Joined</mat-label>
+        <input matInput formControlName="date_joined">
+      </mat-form-field>
+      <div class="profile-actions-button">
+        <button mat-flat-button color="primary" (click)="editProfile()">Edit profile</button>
+        <button mat-flat-button color="accent" [disabled]="!hasChanges()" (click)="updateProfile()">Update profile</button>
+      </div>
+    </form>
+    <!-- JOB OFFERS TAB -->
+    <form *ngIf="openedTab === tab.JOBS_OFFERS" class="example-form">
+
+    </form>
+    <!-- JOB_REQUESTS TAB -->
+    <div *ngIf="openedTab === tab.JOB_OFFER_CREATION">
+      job requests tab
+    </div>
+  </div>
+</div>

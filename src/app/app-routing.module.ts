@@ -6,6 +6,7 @@ import {SearchJobsComponent} from "./search-jobs/search-jobs.component";
 import {JobDetailsComponent} from "./job-details/job-details.component";
 import {UserAccountComponent} from "./user-account/user-account.component";
 import {AuthGuard} from "./guards/auth.guard";
+import {CompanyAccountComponent} from "./company-account/company-account.component";
 
 const routes: Routes = [
   { path : 'login', component: LoginComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path : 'search-jobs', component: SearchJobsComponent},
   { path : 'job-details', component: JobDetailsComponent},
   { path : 'account', component: UserAccountComponent, canActivate: [AuthGuard]},
+  { path : 'company-account', component: CompanyAccountComponent, canActivate: [AuthGuard]},
   { path : '', redirectTo: '/homepage', pathMatch: 'full'}
 ];
 
