@@ -5,6 +5,8 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {AccountService} from "../services/account.service";
 import {JobOffersService} from "../services/job-offers.service";
 import {map, Observable, of, switchMap} from "rxjs";
+import {EditJobOfferDialogComponent} from "./edit-job-offer-dialog/edit-job-offer-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 export enum Tab {
   PROFILE, JOBS_OFFERS, JOB_OFFER_CREATION
@@ -21,11 +23,12 @@ export class CompanyAccountComponent implements OnInit {
   initialFormValues: any;
   isEditing: boolean = false;
   _username : string | undefined;
-  jobOffers: any | undefined;
+  jobOffersData: any | undefined;
 
   constructor(private authService: AuthService,
               private accountService: AccountService,
               private jobOffersService: JobOffersService,
+              private dialog: MatDialog,
               private router: Router,
               private fb: FormBuilder) {
     this.companyDetailsForm = this.fb.group({
@@ -43,8 +46,6 @@ export class CompanyAccountComponent implements OnInit {
     const lastTab = localStorage.getItem('lastOpenedTab')
     this.openedTab = lastTab ? Number(lastTab) : Tab.PROFILE;
     this.loadData();
-    this.getCompanyDetails();
-    this.getJobOffers();
   }
 
   loadData() {
@@ -58,7 +59,8 @@ export class CompanyAccountComponent implements OnInit {
       })
     ).subscribe({
       next: jobOffers => {
-        console.log('job offers : ', jobOffers)
+        this.jobOffersData = jobOffers?.objects
+        console.log('job offers : ', jobOffers?.objects)
       },
       error: error => console.log('error loading data', error)
     })
@@ -143,11 +145,51 @@ export class CompanyAccountComponent implements OnInit {
 //   JOB OFFERS
   getJobOffers(): Observable<any> {
     if(this._username){
-      console.log(this._username)
       return this.jobOffersService.getUserJobOffers(this._username)
     } else {
       return of()
     }
+  }
+
+  editJobOffer(jobOffer: any): void {
+    const dialogRef = this.dialog.open(EditJobOfferDialogComponent, {
+      width: '400px',
+      data: jobOffer
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(result)
+        this.jobOffersService.updateJobOffer(this._username || "" , result).subscribe({
+          next: () => {
+            this.loadData()
+          },
+          error: error => console.error('error fetching data', error)
+        })
+      }
+    });
+  }
+
+  seeJobOffer(jobOffer: any): void {
+
+  }
+
+  createJobOffer(): void {
+    const dialogRef = this.dialog.open(EditJobOfferDialogComponent, {
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe( result => {
+      if(result) {
+        console.log(result)
+        this.jobOffersService.createJobOffer(this._username || '', result).subscribe({
+          next: () => {
+            this.loadData()
+          },
+          error: error => console.error("error creating new job offer", error)
+        })
+      }
+    })
   }
 
 }

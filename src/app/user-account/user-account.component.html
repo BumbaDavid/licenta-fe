@@ -87,9 +87,23 @@
         </mat-expansion-panel>
       </mat-accordion>
     </form>
-    <!-- JOB_REQUESTS TAB -->
+    <!-- Job applications TAB -->
     <div *ngIf="openedTab === tab.JOB_REQUESTS">
-      job requests tab
+    <div class="job-offers-scroll">
+      <mat-card *ngFor="let jobOffer of appliedJobs" class="job-offer-card">
+        <mat-card-header>
+          <mat-card-title>{{ jobOffer.job_position }}</mat-card-title>
+          <mat-card-subtitle>{{ jobOffer.job_category }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ jobOffer.job_description }}</p>
+        </mat-card-content>
+        <mat-card-actions class="job-offer-actions">
+          <button mat-button [routerLink]="['/job-details',jobOffer.id]">See Job offer page</button>
+          <button mat-button (click)="cancelApplication(jobOffer.id)">Cancel application</button>
+        </mat-card-actions>
+      </mat-card>
     </div>
+  </div>
   </div>
 </div>

@@ -7,6 +7,8 @@ import { ExportData} from "../models/models";
 import {AddItemDialogComponent} from "./add-item-dialog/add-item-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {UserCvService} from "../services/user-cv.service";
+import {JobOffersService} from "../services/job-offers.service";
+import {Observable} from "rxjs";
 
 export enum Tab {
   PROFILE, CV, JOB_REQUESTS, CLOSE_ACCOUNT
@@ -22,11 +24,13 @@ export class UserAccountComponent implements OnInit {
   profileForm: FormGroup;
   isEditing: boolean = false;
   cvCategories: any[] | undefined;
+  appliedJobs: any[] | undefined;
 
   openedTab: Tab | undefined;
   constructor(private authService: AuthService,
               private accountService: AccountService,
               private userCVService: UserCvService,
+              private jobOfferService: JobOffersService,
               private router: Router,
               private fb: FormBuilder,
               private dialog: MatDialog) {
@@ -46,6 +50,7 @@ export class UserAccountComponent implements OnInit {
     const lastTab = localStorage.getItem('lastOpenedTab')
     this.openedTab = lastTab ? Number(lastTab) : Tab.PROFILE;
     this.getUserData();
+    this.getAppliedJobs();
   }
 
   changeTab(newTab: Tab) {
@@ -168,6 +173,25 @@ export class UserAccountComponent implements OnInit {
         items: data.user_cv[key]
       }));
     }
-    console.log(this.cvCategories)
   }
+
+  getAppliedJobs() {
+    this.jobOfferService.getAppliedJobs().subscribe( {
+      next: data =>{
+        this.appliedJobs = data?.objects;
+        console.log("applied jobs :", this.appliedJobs)
+    },
+      error: error => console.error("error fetching applied jobs, ", error)
+    })
+  }
+
+  cancelApplication(jobId: number): void {
+    this.jobOfferService.cancelApplication(jobId).subscribe({
+      next: () => {
+        this.getAppliedJobs();
+      },
+      error: (error:any) => console.error('error canceling application', error)
+    })
+  }
+
 }

@@ -15,6 +15,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatExpansionModule} from "@angular/material/expansion";
 import { AddItemDialogComponent } from './user-account/add-item-dialog/add-item-dialog.component';
 import { CompanyAccountComponent } from './company-account/company-account.component';
+import { EditJobOfferDialogComponent } from './company-account/edit-job-offer-dialog/edit-job-offer-dialog.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { CompanyAccountComponent } from './company-account/company-account.compo
     JobDetailsComponent,
     UserAccountComponent,
     AddItemDialogComponent,
-    CompanyAccountComponent
+    CompanyAccountComponent,
+    EditJobOfferDialogComponent
   ],
     imports: [
         BrowserModule,
@@ -33,6 +36,7 @@ import { CompanyAccountComponent } from './company-account/company-account.compo
         BrowserAnimationsModule,
         MaterialModule,
         HttpClientModule,
+        RouterModule,
     ],
   providers: [],
   bootstrap: [AppComponent]

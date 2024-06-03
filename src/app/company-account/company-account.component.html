@@ -30,7 +30,7 @@
         <input matInput formControlName="company_name">
       </mat-form-field>
 
-      <table class="example-full-width" ><tr>
+      <table class="example-full-width"><tr>
         <td><mat-form-field class="example-full-width" appearance="outline">
           <mat-label>Email</mat-label>
           <input matInput formControlName="email">
@@ -41,7 +41,7 @@
         </mat-form-field></td>
       </tr></table>
 
-      <mat-form-field class = "example-full-width">
+      <mat-form-field class="example-full-width">
         <mat-label>Company description</mat-label>
         <textarea matInput formControlName="description"></textarea>
       </mat-form-field>
@@ -55,10 +55,27 @@
       </div>
     </form>
     <!-- JOB OFFERS TAB -->
-    <form *ngIf="openedTab === tab.JOBS_OFFERS" class="example-form">
-
-    </form>
-    <!-- JOB_REQUESTS TAB -->
+    <div class="job-offers-container" *ngIf="openedTab === tab.JOBS_OFFERS">
+      <div class="job-offers-scroll">
+        <mat-card *ngFor="let jobOffer of jobOffersData" class="job-offer-card">
+          <mat-card-header>
+            <mat-card-title>{{ jobOffer.job_position }}</mat-card-title>
+            <mat-card-subtitle>{{ jobOffer.job_category }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ jobOffer.job_description }}</p>
+          </mat-card-content>
+          <mat-card-actions class="job-offer-actions">
+            <button mat-button (click)="editJobOffer(jobOffer)">Edit Job-offer</button>
+            <button mat-button [routerLink]="['/job-details',jobOffer.id]">See Job offer page</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div>
+        <button mat-button (click)="createJobOffer()">Create new job offer</button>
+      </div>
+    </div>
+    <!-- JOB_OFFER_CREATION TAB -->
     <div *ngIf="openedTab === tab.JOB_OFFER_CREATION">
       job requests tab
     </div>

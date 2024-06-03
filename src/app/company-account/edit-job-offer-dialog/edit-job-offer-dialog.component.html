@@ -1,0 +1,40 @@
+<!-- edit-job-offer-dialog.component.html -->
+<h1 mat-dialog-title>{{ isEditMode ? 'Edit Job Offer' : 'Create Job Offer' }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="editJobOfferForm">
+    <mat-form-field class="full-width">
+      <mat-label>Job Position</mat-label>
+      <input matInput formControlName="job_position">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Job Category</mat-label>
+      <input matInput formControlName="job_category">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Job Description</mat-label>
+      <textarea matInput formControlName="job_description"></textarea>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Location</mat-label>
+      <input matInput formControlName="location">
+    </mat-form-field>
+    <div formArrayName="requirements">
+      <div *ngFor="let req of requirements.controls; let i = index" [formGroupName]="i">
+        <mat-form-field class="full-width">
+          <mat-label>Requirement {{ i + 1 }}</mat-label>
+          <textarea matInput formControlName="requirement"></textarea>
+        </mat-form-field>
+        <button mat-button color="warn" (click)="removeRequirement(i)">Remove</button>
+      </div>
+    </div>
+    <button mat-button (click)="addRequirement()">Add Requirement</button>
+    <mat-form-field class="full-width">
+      <mat-label>Salary</mat-label>
+      <input matInput type="number" formControlName="salary">
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onDiscard()">Discard</button>
+  <button mat-button (click)="onSave()">{{ isEditMode ? 'Save' : 'Create' }}</button>
+</div>

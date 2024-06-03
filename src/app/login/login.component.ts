@@ -24,6 +24,7 @@ export class LoginComponent  {
       this.authService.login(username, password).subscribe(
         apiKey => {
           localStorage.setItem('api_key', apiKey);
+          localStorage.setItem('username', username);
           this.router.navigate(['/homepage']).then(() => {
             console.log('navigation to route successful');
           });

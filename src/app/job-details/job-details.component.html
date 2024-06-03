@@ -11,21 +11,23 @@
 
   <mat-card class="main-card">
     <mat-card-header>
-      <mat-card-title> job title </mat-card-title>
-      <mat-card-subtitle>job.company </mat-card-subtitle>
+      <mat-card-title> {{jobOffer?.job_position}}</mat-card-title>
+      <mat-card-subtitle>{{jobOffer?.company?.company_name}} </mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
-      <button mat-raised-button color="primary">Apply for Job</button>
+      <button mat-raised-button color="primary" (click)="applyForJob()">Apply for Job</button>
       <div class="spacer"></div> <!-- Added div for spacing -->
       <h3>Requirements</h3>
-      <p>job.requirements </p>
+      <div *ngFor="let requirement of jobOffer?.requirements">
+        <p>{{requirement}}</p>
+      </div>
       <div class="spacer"></div> <!-- Added div for spacing -->
       <h3>Job Description</h3>
-      <p> job.description </p>
+      <p> {{jobOffer?.job_description}} </p>
       <div class="spacer"></div> <!-- Added div for spacing -->
       <h3>Company Description</h3>
-      <p> job.companyDescription</p>
+      <p>{{jobOffer?.company?.description}} </p>
     </mat-card-content>
   </mat-card>
 </div>
