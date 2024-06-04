@@ -1,4 +1,5 @@
-<mat-card>
+<!--LOGIN TAB-->
+<mat-card *ngIf="loginTab">
   <mat-card-title>Login</mat-card-title>
   <mat-card-content>
     <form [formGroup]="form" (ngSubmit)="submit()">
@@ -7,21 +8,82 @@
           <input type="text" matInput placeholder="Username" formControlName="username">
         </mat-form-field>
       </p>
-
       <p>
         <mat-form-field>
           <input type="password" matInput placeholder="Password" formControlName="password">
         </mat-form-field>
       </p>
-
-      <p *ngIf="error" class="error">
-        {{ error }}
+      <p *ngIf="errorLog" class="error">
+        {{ errorLog }}
       </p>
-
       <div class="button">
         <button type="submit" mat-button>Login</button>
+        <button type="submit" mat-button (click)="changeTab()">Register</button>
       </div>
-
     </form>
   </mat-card-content>
 </mat-card>
+
+<!--REGISTER TAB-->
+<mat-card *ngIf="!loginTab">
+  <mat-card-title>Register</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
+      <p>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Username" formControlName="username">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input type="password" matInput placeholder="Password" formControlName="password">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input type="password" matInput placeholder="Repeat Password" formControlName="repeatPassword">
+        </mat-form-field>
+      </p>
+      <p *ngIf="registerForm.hasError('passwordMismatch')" class="error">
+        Passwords do not match
+      </p>
+      <p>
+        <mat-form-field>
+          <mat-select placeholder="Select Type" formControlName="userType">
+            <mat-option value="user">User</mat-option>
+            <mat-option value="company">Company</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+      <div *ngIf="registerForm.get('userType')?.value === 'user'">
+        <p>
+          <mat-form-field>
+            <input type="text" matInput placeholder="First Name" formControlName="firstName">
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field>
+            <input type="text" matInput placeholder="Last Name" formControlName="lastName">
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field>
+            <input type="email" matInput placeholder="Email" formControlName="email">
+          </mat-form-field>
+        </p>
+      </div>
+      <div *ngIf="registerForm.get('userType')?.value === 'company'">
+        <p>
+          <mat-form-field>
+            <input type="email" matInput placeholder="Email" formControlName="email">
+          </mat-form-field>
+        </p>
+      </div>
+      <div class="button">
+        <button type="submit" mat-button>Create account</button>
+        <button type="button" mat-button (click)="changeTab()">Login</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+

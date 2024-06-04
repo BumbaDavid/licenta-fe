@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {catchError, map, Observable, of} from "rxjs";
+import {catchError, map, Observable, of, switchMap} from "rxjs";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,12 @@ export class AuthService {
   private loginUrl= 'http://127.0.0.1:8000/api/v1/userLogin/login/';
   private logoutUrl = 'http://127.0.0.1:8000/api/v1/userLogin/logout/';
   private validateUrl = 'http://127.0.0.1:8000/api/v1/userLogin/validate/';
-  constructor(private http: HttpClient) {
+  private userRegistrationUrl = 'http://127.0.0.1:8000/api/v1/userLogin/';
+
+  constructor(private http: HttpClient, private router: Router) {
   }
 
-  login(username: string, password: string): Observable<string> {
+  login(username: any, password: any): Observable<string> {
     const body = {username, password}
     return this.http.post<{api_key: string}>(this.loginUrl, body).pipe(
       map(response => response.api_key),
@@ -32,6 +35,17 @@ export class AuthService {
     } else {
       return of();
     }
+  }
+
+  register(registrationInfo: any): Observable<any> {
+    return this.http.post(this.userRegistrationUrl, registrationInfo).pipe(
+      switchMap(() => this.login(registrationInfo?.username, registrationInfo?.password)),
+      switchMap(async api_key => {
+        await this.router.navigate(['/homepage']);
+        return api_key;
+      }),
+      catchError(this.handleError<void>('register'))
+    )
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

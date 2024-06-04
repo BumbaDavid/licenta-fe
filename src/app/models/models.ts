@@ -61,5 +61,13 @@ export interface ExportData {
   data:{
     [key : string] : string[] | { oldValue: string | undefined, newValue: string | undefined };
   };
+}
 
+export interface RegistrationData {
+  username: string;
+  password: string;
+  account_type: string;
+  email: string;
+  first_name?: string;  // Optional property
+  last_name?: string;   // Optional property
 }
