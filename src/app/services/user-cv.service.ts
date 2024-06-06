@@ -9,7 +9,7 @@ import {handleError} from "../../handle-error";
 })
 export class UserCvService {
 
-  private updateUserCVUrl = 'http://127.0.0.1:8000/api/v1/userCV/update-cv/'
+  private updateUserCVUrl = 'http://localhost:8000/api/v1/userCV/update-cv/'
 
   constructor(private http: HttpClient) { }
 

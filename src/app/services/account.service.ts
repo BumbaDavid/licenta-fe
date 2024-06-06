@@ -8,7 +8,7 @@ import {handleError} from "../../handle-error";
 })
 export class AccountService {
 
-  private updateUserUrl = 'http://127.0.0.1:8000/api/v1/userLogin/update-user/';
+  private updateUserUrl = 'http://localhost:8000/api/v1/userLogin/update-user/';
   private userDataUrl = 'http://127.0.0.1:8000/api/v1/userLogin/user-data/';
   constructor(private http: HttpClient) { }
 
