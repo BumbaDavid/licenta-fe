@@ -12,6 +12,7 @@ import {MatChipsModule} from "@angular/material/chips";
 import {MatIconModule} from "@angular/material/icon";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 
 const MaterialComponent =[
@@ -28,7 +29,8 @@ const MaterialComponent =[
   MatChipsModule,
   MatIconModule,
   MatExpansionModule,
-  MatDialogModule
+  MatDialogModule,
+  MatSidenavModule,
 ];
 
 @NgModule({

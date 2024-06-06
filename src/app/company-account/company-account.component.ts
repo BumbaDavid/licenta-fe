@@ -182,12 +182,12 @@ export class CompanyAccountComponent implements OnInit {
     dialogRef.afterClosed().subscribe( result => {
       if(result) {
         console.log(result)
-        this.jobOffersService.createJobOffer(this._username || '', result).subscribe({
-          next: () => {
-            this.loadData()
-          },
-          error: error => console.error("error creating new job offer", error)
-        })
+        // this.jobOffersService.createJobOffer(this._username || '', result).subscribe({
+        //   next: () => {
+        //     this.loadData()
+        //   },
+        //   error: error => console.error("error creating new job offer", error)
+        // })
       }
     })
   }

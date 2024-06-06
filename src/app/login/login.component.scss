@@ -1,28 +1,67 @@
 :host {
   display: flex;
   justify-content: center;
-  margin: 100px 0;
+  height: 100%;
 }
 
-.mat-form-field {
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+
+.container {
+  height: 100%; /* Full viewport height */
   width: 100%;
-  min-width: 300px;
-}
-
-mat-card-title,
-mat-card-content {
+  background-image: url('/assets/login_background.png'); /* Path to your image */
+  background-size: cover; /* Cover the entire container */
+  background-position: center; /* Center the background image */
   display: flex;
-  justify-content: center;
+  align-items: center; /* Aligns <mat-card> vertically */
+  justify-content: center; /* Aligns <mat-card> horizontally */
+
+  .mat-form-field {
+    width: 100%;
+    min-width: 300px;
+  }
+
+  mat-card {
+    background: rgba(255, 255, 255, 0.8); /* Optional: semi-transparent background for the card */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: adds shadow for better visibility */
+  }
+
+  mat-card-title,
+  mat-card-content {
+    display: flex;
+    justify-content: center;
+  }
+
+  .error {
+    padding: 16px;
+    width: 300px;
+    color: white;
+    background-color: red;
+  }
+
+  .button {
+    background: rgb(48, 176, 119);
+    display: flex;
+    justify-content: center;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .register-login-prompt {
+    text-align: center;
+
+    a {
+      color: #1976d2; /* Sample color; adjust as needed */
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
 }
 
-.error {
-  padding: 16px;
-  width: 300px;
-  color: white;
-  background-color: red;
-}
-
-.button {
-  display: flex;
-  justify-content: flex-end;
-}

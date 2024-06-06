@@ -1,4 +1,4 @@
-import {Input, Component, Output, EventEmitter} from '@angular/core';
+import {Input, Component, Output, EventEmitter, OnInit} from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -8,7 +8,7 @@ import {
   ValidationErrors
 } from '@angular/forms';
 import {AuthService} from "../services/auth.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {RegistrationData} from "../models/models";
 
 @Component({
@@ -16,7 +16,7 @@ import {RegistrationData} from "../models/models";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent  {
+export class LoginComponent implements OnInit {
   loginTab: boolean = true;
   error: string | null | undefined;
   form: FormGroup = new FormGroup({
@@ -29,7 +29,7 @@ export class LoginComponent  {
   @Input() errorLog: string | null | undefined;
   @Output() submitEM = new EventEmitter();
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {
     this.registerForm = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
@@ -40,6 +40,13 @@ export class LoginComponent  {
       email: new FormControl('', [Validators.required, Validators.email])
     }, {validators: this.passwordMatchValidator})
   }
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.loginTab = params['register'] !== 'true';
+    })
+  }
+
 
   passwordMatchValidator: ValidatorFn = (formGroup: AbstractControl): ValidationErrors | null => {
     const password = formGroup.get('password')?.value;

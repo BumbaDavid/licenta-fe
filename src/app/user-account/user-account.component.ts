@@ -61,6 +61,8 @@ export class UserAccountComponent implements OnInit {
   logout() {
     this.authService.logout().subscribe(() => {
       localStorage.removeItem('api_key');
+      localStorage.removeItem('username')
+      localStorage.removeItem('lastOpenedTab')
       this.router.navigate(['/homepage']).then(() => {
         console.log('logout successful')
       })

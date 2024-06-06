@@ -3,17 +3,76 @@ mat-toolbar {
   width: 100%;
   top: 0;
   z-index: 1000; /* Ensure it stays above other content */
+
+  a {
+    font-size: large;
+  }
+}
+
+.custom-toolbar {
+  background-color: rgb(51, 113, 87); /* Replace with your RGB color */
+  color: rgb(173, 238, 227);
+
+}
+
+.custom-toolbar.scrolled {
+  background-color: rgb(48, 176, 119); /* Replace with your RGB color */
+  color: rgb(255,255,255);
 }
 
 body {
-  padding-top: 90px; // Adjust based on header height
-  margin: 0;
+  padding-top: 64px; // Adjust based on header height
   width: 100%; // Ensure body takes full width
   height:100%;
   display: flex;
   flex-direction: column; // Align children (containers) vertically
   align-items: center; // Center-align the child containers
   min-height:100%;
+}
+
+.container {
+  display: flex;
+  justify-content: left;
+  width: 100%;
+  height: 100vh;
+  min-height: calc(100vh - 52vh);
+
+  .form-container {
+    display: flex;
+    justify-content: center; // Center the form
+    align-items: center;
+
+    mat-card {
+      flex: 0 0 70%;
+      margin-left: 10%;
+      margin-top: 5%;
+      border: 2px solid rgb(51, 113, 87);
+
+      button {
+        background: rgb(48, 176, 119);
+      }
+
+    }
+
+  }
+
+  .image-container {
+    flex: 1; // Take available space on the right
+    display: flex;
+    justify-content: right; // Center the image
+    align-items: center;
+    height: 100%;
+    position: relative;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+      width: 70%;
+      position: absolute;
+      mask-image: linear-gradient(to right, transparent, black); // Fade effect
+    }
+  }
+
 }
 
 html {
@@ -32,17 +91,6 @@ html {
 /* Ensure the links next to the logo align properly */
 a.mat-button {
   margin-right: 16px; /* Adjust spacing between buttons if necessary */
-}
-
-.container {
-  display: flex;
-  justify-content: left;
-  width: 100%;
-}
-mat-card {
-  flex: 0 0 25%;
-  margin-left: 10%;
-  margin-top: 5%;
 }
 
 mat-form-field {
@@ -72,9 +120,10 @@ button {
   align-items: center; // Ensures everything in this container is centered
   justify-content: center;
   width: 100%;
-  max-width: 1280px;
+  max-width: 100%;
   margin: 3% auto 0;
   flex:1;
+  background: linear-gradient(to bottom, white, rgb(173, 238, 227));
 }
 
 .category-card {
@@ -133,7 +182,7 @@ button {
 
 .promoted-jobs-section {
   width: 100%;
-  background-color: #f7f7f7; // Very light gray background
+  background: linear-gradient(to bottom, rgb(173, 238, 227), rgb(48, 176, 119));
   padding: 40px 20px;
   box-sizing: border-box;
   text-align: center;
@@ -206,7 +255,7 @@ button {
 .site-footer {
   width: 100%;
   padding: 20px 0;
-  background-color: #f1f1f1; // Light grey background; adjust as needed
+  background: linear-gradient(to bottom, rgb(48, 176, 119),rgb(47, 67, 35));
   text-align: center; // Center the text within the footer
   box-sizing: border-box;
   position: relative;
@@ -215,7 +264,7 @@ button {
 
   p {
     margin: 0; // Removes default margin from the paragraph for cleaner spacing
-    color: #333; // Sets the text color; adjust as needed
+    color: #ffffff; // Sets the text color; adjust as needed
     font-size: 0.9em; // Sets a smaller font size for the footer text
   }
 }

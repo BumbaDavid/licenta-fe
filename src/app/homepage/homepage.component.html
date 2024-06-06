@@ -1,39 +1,48 @@
 <!-- Header Component -->
-<mat-toolbar [color]="isScrolled ? 'accent' : 'primary'">
+<mat-toolbar [class.scrolled]="isScrolled" class="custom-toolbar">
   <span>
     <a href="/" mat-button>
       <!-- Logo and home link -->
       <img src="assets/logo.png" alt="Logo" style="height: 40px;">
     </a>
     <!-- Navigation Link moved next to the logo -->
-    <a mat-button href="#jobs">Joburi</a>
+    <a mat-button routerLink="/search-jobs" >Joburi</a>
   </span>
   <span class="spacer"></span>
   <!-- Right-side Links -->
-  <span class="account-actions">
-    <a mat-button href="#new-account">Cont nou</a>
-    <a mat-button href="#login">Intra în cont</a>
+  <span *ngIf="!isLoggedin" class="account-actions">
+    <a mat-button [routerLink]="['/login']" [queryParams]="{register: 'true'}">Cont nou</a>
+    <a mat-button routerLink="/login">Intra în cont</a>
+  </span>
+  <span *ngIf="isLoggedin" class="account-actions">
+    <a mat-button routerLink="/account">Cont</a>
   </span>
 </mat-toolbar>
+
 <body>
 <div class="container">
-  <mat-card>
-    <mat-card-content>
-      <form>
-        <mat-form-field appearance="fill">
-          <mat-label>Cuvinte cheie</mat-label>
-          <input matInput placeholder="Cuvinte cheie">
-        </mat-form-field>
+  <div class="form-container">
+    <mat-card>
+      <mat-card-content>
+        <form>
+          <mat-form-field appearance="outline">
+            <mat-label>Cuvinte cheie</mat-label>
+            <input matInput>
+          </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Oraș</mat-label>
-          <input matInput placeholder="Oraș">
-        </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Oraș</mat-label>
+            <input matInput>
+          </mat-form-field>
 
-        <button mat-raised-button color="warn" style="width: 100%;">Caută job</button>
-      </form>
-    </mat-card-content>
-  </mat-card>
+          <button mat-raised-button style="width: 100%;">Caută job</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="image-container">
+    <img src="/assets/homepage_search.jpg" alt="Right side image">
+  </div>
 </div>
 <div class="main-container">
   <div class="category-header">
@@ -49,8 +58,6 @@
       </ul>
     </div>
   </div>
-</div>
-<div class="main-container">
   <div class="category-header">
     <h2>Alege-ți jobul în funcție de industrie</h2>
     <p>21.717 joburi disponibile</p> <!-- Update dynamically if needed -->
@@ -83,7 +90,7 @@
   </div>
 </div>
 <footer class="site-footer">
-  <p>All rights reserved to licenta-poli</p>
+  <p>All rights reserved to Bumba David-Alexandru</p>
 </footer>
 </body>
 
