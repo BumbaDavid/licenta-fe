@@ -13,6 +13,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 const MaterialComponent =[
@@ -31,6 +33,8 @@ const MaterialComponent =[
   MatExpansionModule,
   MatDialogModule,
   MatSidenavModule,
+  MatCheckboxModule,
+  BrowserAnimationsModule
 ];
 
 @NgModule({

@@ -34,7 +34,7 @@ export interface JobOffers {
   salary: number;
   requirements: string;
   location: string;
-  job_posiion: string;
+  job_position: string;
   job_category: string;
 }
 
@@ -70,4 +70,17 @@ export interface RegistrationData {
   email: string;
   first_name?: string;  // Optional property
   last_name?: string;   // Optional property
+}
+
+export interface JobCards {
+  job_title: string;
+  job_description: string;
+  job_location: string;
+  company_name: string;
+}
+
+export interface Filter {
+  name: string,
+  category: string,
+  query: string,
 }

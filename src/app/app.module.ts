@@ -17,6 +17,8 @@ import { AddItemDialogComponent } from './user-account/add-item-dialog/add-item-
 import { CompanyAccountComponent } from './company-account/company-account.component';
 import { EditJobOfferDialogComponent } from './company-account/edit-job-offer-dialog/edit-job-offer-dialog.component';
 import {RouterModule} from "@angular/router";
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
+import { FilterCitiesPipe } from './pipes/filter-cities-pipe.pipe';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import {RouterModule} from "@angular/router";
     UserAccountComponent,
     AddItemDialogComponent,
     CompanyAccountComponent,
-    EditJobOfferDialogComponent
+    EditJobOfferDialogComponent,
+    FilterCitiesPipe
   ],
     imports: [
         BrowserModule,
@@ -39,7 +42,14 @@ import {RouterModule} from "@angular/router";
         HttpClientModule,
         RouterModule,
     ],
-  providers: [],
+  providers: [
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        floatLabel: 'never'
+      }
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

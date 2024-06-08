@@ -105,4 +105,10 @@ export class JobOffersService {
       return of()
     }
   }
+
+  getAllJobs(): Observable<any> {
+    return this.http.get<any>(`${this.jobOffersUrl}?all=true&bypass_auth=true`).pipe(
+      catchError(handleError<any>('getAllJobs'))
+    )
+  }
 }

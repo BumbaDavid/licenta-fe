@@ -6,8 +6,7 @@
   <!-- Search Bar -->
   <div class="search-container">
     <mat-form-field appearance="outline">
-      <mat-label>Search for jobs</mat-label>
-      <input matInput [(ngModel)]="searchQuery">
+      <input matInput placeholder="Search for jobs" [(ngModel)]="searchQuery">
     </mat-form-field>
     <button mat-raised-button (click)="searchJobs()">Search</button>
   </div>
@@ -17,10 +16,17 @@
       <div class="filters">
         <mat-card class="filter-card">
           <mat-card-header>
-            <mat-card-title>Salary</mat-card-title>
+            <mat-card-title>Job Type</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <!-- Add your salary filter controls here -->
+            <div class="salary-checkboxes" *ngFor="let jobType of jobTypes">
+                <mat-checkbox
+                  [color]=""
+                  [checked]="selectedTypes[jobType.query]"
+                  (change)="onChange(jobType.query, $event.checked)">
+                {{ jobType.name }}
+                </mat-checkbox>
+            </div>
           </mat-card-content>
         </mat-card>
 
@@ -30,7 +36,14 @@
             <mat-card-title>Location</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <!-- Add your location filter controls here -->
+            <div class="checkbox-container">
+              <input matInput type="text" [(ngModel)]="filterText" placeholder="ex: București" class="search-input">
+              <mat-checkbox *ngFor="let city of cities| filterCities: filterText"
+                            [checked]="selectedTypes[city.query]"
+                            (change)="onCityChange(city.query, $event.checked)">
+                {{ city.name }}
+              </mat-checkbox>
+            </div>
           </mat-card-content>
         </mat-card>
 
@@ -43,18 +56,62 @@
             <!-- Add your department filter controls here -->
           </mat-card-content>
         </mat-card>
+
+        <!--Industry Filter Card-->
+        <mat-card class="filter-card">
+          <mat-card-header>
+            <mat-card-title>Industry</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <!-- Add your department filter controls here -->
+          </mat-card-content>
+        </mat-card>
+
+<!--        Study Level-->
+        <mat-card class="filter-card">
+          <mat-card-header>
+            <mat-card-title>Study Level</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="salary-checkboxes" *ngFor="let study of studyLevel">
+              <mat-checkbox
+                [color]=""
+                [checked]="selectedTypes[study.query]"
+                (change)="onChange(study.query, $event.checked)">
+                {{ study.name }}
+              </mat-checkbox>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+<!--        Experience Level-->
+        <mat-card class="filter-card">
+          <mat-card-header>
+            <mat-card-title>Experience Level</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="salary-checkboxes" *ngFor="let experience of experienceLevel">
+              <mat-checkbox
+                [color]=""
+                [checked]="selectedTypes[experience.query]"
+                (change)="onChange(experience.query, $event.checked)">
+                {{ experience.name }}
+              </mat-checkbox>
+            </div>
+          </mat-card-content>
+        </mat-card>
       </div>
     </mat-drawer>
 
     <mat-drawer-content class="job-listings">
       <mat-card *ngFor="let job of jobs" class="job-card">
         <mat-card-header>
-          <mat-card-title>{{ job.title }}</mat-card-title>
-          <mat-card-subtitle>{{ job.company }} - {{ job.location }}</mat-card-subtitle>
+          <mat-card-title>{{ job.job_title }}</mat-card-title>
+          <mat-card-subtitle>{{ job.company_name }} - {{ job.job_location }}</mat-card-subtitle>
         </mat-card-header>
 
         <mat-card-content>
-          <p>{{ job.description }}</p>
+          <p>{{ job.job_description }}</p>
         </mat-card-content>
 
         <mat-card-actions>
@@ -63,5 +120,4 @@
       </mat-card>
     </mat-drawer-content>
   </mat-drawer-container>
-
 </div>
