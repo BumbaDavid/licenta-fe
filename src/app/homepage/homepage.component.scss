@@ -1,24 +1,3 @@
-mat-toolbar {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000; /* Ensure it stays above other content */
-
-  a {
-    font-size: large;
-  }
-}
-
-.custom-toolbar {
-  background-color: rgb(51, 113, 87); /* Replace with your RGB color */
-  color: rgb(173, 238, 227);
-
-}
-
-.custom-toolbar.scrolled {
-  background-color: rgb(48, 176, 119); /* Replace with your RGB color */
-  color: rgb(255,255,255);
-}
 
 body {
   padding-top: 64px; // Adjust based on header height
@@ -46,14 +25,13 @@ body {
       flex: 0 0 70%;
       margin-left: 10%;
       margin-top: 5%;
-      border: 2px solid rgb(51, 113, 87);
+      border: 3px solid #55883B;
 
       button {
-        background: rgb(48, 176, 119);
+        background: #9A6735;
+        color: #E6F0DC;
       }
-
     }
-
   }
 
   .image-container {
@@ -80,28 +58,6 @@ html {
   width: 100%;
 }
 
-.spacer {
-  flex: 1 1 auto;
-}
-
-.account-actions a {
-  margin-right: 8px;
-}
-
-/* Ensure the links next to the logo align properly */
-a.mat-button {
-  margin-right: 16px; /* Adjust spacing between buttons if necessary */
-}
-
-mat-form-field {
-  width: 100%; /* Full width fields */
-  margin-bottom: 16px; /* Space between fields and button */
-}
-
-button {
-  margin-top: 20px; /* Space above the button */
-}
-
 .job-category-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr); // Creates exactly four columns
@@ -121,9 +77,9 @@ button {
   justify-content: center;
   width: 100%;
   max-width: 100%;
-  margin: 3% auto 0;
+  margin: 0 auto 0;
   flex:1;
-  background: linear-gradient(to bottom, white, rgb(173, 238, 227));
+  background: linear-gradient(to bottom, #E6F0DC, #C1E899);
 }
 
 .category-card {
@@ -133,8 +89,9 @@ button {
   align-items: center;
   text-align: center;
   padding: 10px;
-  background: #FFF; // Background color
+  background: #9A6735; // Background color
   box-shadow: none; // No shadow
+  border-radius: 8px;
 
   img {
     width: 100%;
@@ -182,7 +139,7 @@ button {
 
 .promoted-jobs-section {
   width: 100%;
-  background: linear-gradient(to bottom, rgb(173, 238, 227), rgb(48, 176, 119));
+  background: linear-gradient(to bottom,  #C1E899, #55883B);
   padding: 40px 20px;
   box-sizing: border-box;
   text-align: center;
@@ -213,7 +170,7 @@ button {
   }
 
   .promoted-job-card {
-    background-color: #fff;
+    background: #E6F0DC;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Light shadow
     border-radius: 8px; // Rounded corners
     padding: 20px;
@@ -255,7 +212,7 @@ button {
 .site-footer {
   width: 100%;
   padding: 20px 0;
-  background: linear-gradient(to bottom, rgb(48, 176, 119),rgb(47, 67, 35));
+  background: linear-gradient(to bottom, #C1E899, #55883B);
   text-align: center; // Center the text within the footer
   box-sizing: border-box;
   position: relative;
@@ -264,9 +221,12 @@ button {
 
   p {
     margin: 0; // Removes default margin from the paragraph for cleaner spacing
-    color: #ffffff; // Sets the text color; adjust as needed
+    color: #000000; // Sets the text color; adjust as needed
     font-size: 0.9em; // Sets a smaller font size for the footer text
   }
+}
+mat-form-field {
+  padding-bottom: 1.25em;
 }
 
 

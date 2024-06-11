@@ -1,6 +1,8 @@
 import {Component, OnInit, HostListener, ViewEncapsulation} from '@angular/core';
 import {homepageJobCategories, JobCategory, PromotedJob, promotedJobs} from "../models/mock-data-models";
 import {AuthService} from "../services/auth.service";
+import {JobOffersService} from "../services/job-offers.service";
+import {job_category, job_position} from "../models/filter-models";
 
 @Component({
   selector: 'app-homepage',
@@ -8,21 +10,27 @@ import {AuthService} from "../services/auth.service";
   styleUrls: ['./homepage.component.scss'],
 })
 export class HomepageComponent implements OnInit {
-  isScrolled = false;
   categories: JobCategory[] = homepageJobCategories;
   promotedJobs: PromotedJob[] = promotedJobs;
-  isLoggedin: boolean = false;
-  constructor(private authService: AuthService) { }
 
+  nrJoburiDisponibile: any;
+  nrDepartamente: any;
+  public industrii = job_category[4];
+  public departament = job_position;
+
+  constructor(private authService: AuthService, private jobService: JobOffersService) {
+    this.nrDepartamente = this.departament.length;
+  }
   ngOnInit(): void {
-    if(localStorage.getItem('api_key')){
-      this.isLoggedin = true
-    }
-  }
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    const scrollOffset = window.scrollY;
-    this.isScrolled = scrollOffset > 10;
+    this.fetchAllJobs()
   }
 
+  fetchAllJobs() {
+    let jobLimit = 8
+    this.jobService.getAllJobs(jobLimit).subscribe({
+      next: (jobs) => {
+        this.nrJoburiDisponibile = jobs.meta.total_count
+      }
+    })
+  }
 }

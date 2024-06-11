@@ -18,7 +18,7 @@ import { CompanyAccountComponent } from './company-account/company-account.compo
 import { EditJobOfferDialogComponent } from './company-account/edit-job-offer-dialog/edit-job-offer-dialog.component';
 import {RouterModule} from "@angular/router";
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
-import { FilterCitiesPipe } from './pipes/filter-cities-pipe.pipe';
+import { FilterCitiesPipe } from './pipes/filter-input.pipe';
 
 
 @NgModule({

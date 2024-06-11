@@ -1,7 +1,3 @@
-mat-toolbar {
-  background-color: rgb(51, 113, 87);
-}
-
 .search-jobs-background {
 
   .search-container {
@@ -9,7 +5,7 @@ mat-toolbar {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: grey;
+    background: #E6F0DC;
 
     mat-form-field {
       margin-right: 8px;
@@ -21,8 +17,8 @@ mat-toolbar {
       height: 50px;
       display: flex;
       align-items: center;
-      background: rgb(48, 176, 119);
-      color: white;
+      background: #9A6735;
+      color: #E6F0DC;
     }
 
   }
@@ -34,11 +30,11 @@ mat-toolbar {
     display: flex;
     overflow-x: hidden;
     overflow-y: auto;
-    background: linear-gradient(to bottom, rgb(206,245,119), rgb(161,249,137), rgb(136,250,147));
+    background: #E6F0DC;
 
     mat-drawer {
       width: 40%;
-      background: linear-gradient(to bottom, rgb(206,245,119), rgb(161,249,137), rgb(136,250,147));
+      background: #E6F0DC;
       position: relative;
       height: auto;
       overflow-y: auto;
@@ -59,7 +55,7 @@ mat-toolbar {
         box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
         height: auto;
         max-height: 300px;
-        background: #EEEEEE;
+        background: #C1E899;
         overflow: hidden;
 
         mat-checkbox {
@@ -104,7 +100,8 @@ mat-toolbar {
         margin-bottom: 20px;
         width: 50%;
         box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
-        background: #EEEEEE;
+        background: #C1E899;
+        border: 2px solid #55883B;
 
         .mat-card-header {
           align-items: center; // Center title and subtitle vertically
@@ -125,6 +122,31 @@ mat-toolbar {
           }
         }
       }
+
+      .pagination-buttons {
+        display: flex;
+        justify-content: left;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-left: 0;
+        button {
+          background: #9A6735;
+          color: #E6F0DC;
+          margin: 0 5px;
+        }
+
+        span {
+          display: flex;
+          align-items: center;
+          margin: 0 5px;
+        }
+
+        .current-page-button {
+          background: #55883B;
+          color: #E6F0DC;
+          margin: 0 5px;
+        }
+      }
     }
   }
 
@@ -132,7 +154,7 @@ mat-toolbar {
     padding: 20px;
 
     .filter-card {
-      border: 2px solid rgb(51, 113, 87);
+      border: 2px solid #55883B;
     }
   }
 
@@ -141,8 +163,8 @@ mat-toolbar {
   }
 
   .apply-for-job-button {
-    background: rgb(51, 113, 87);
-    color: white;
+    background: #9A6735;
+    color: #E6F0DC;
   }
 }
 

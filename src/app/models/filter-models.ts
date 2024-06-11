@@ -1,25 +1,85 @@
 import {Filter} from "./models";
 
-export const jobType: Filter[] = [
-  {name:"Full Time", category:"jobType", query:"full-time"},
-  {name:"Part Time", category:"jobType", query:"part-time"},
-  {name:"Internship / Voluntariat", category:"jobType", query:"internship,voluntariat"},
-  {name:"Proiect / Sezonier", category:"jobType", query:"proiect,sezonier"}
+export const job_type: Filter[] = [
+  {name:"Full Time", category:"job_type", query:"full-time"},
+  {name:"Part Time", category:"job_type", query:"part-time"},
+  {name:"Internship / Voluntariat", category:"job_type", query:"internship,voluntariat"},
+  {name:"Proiect / Sezonier", category:"job_type", query:"proiect,sezonier"}
 ]
 
-export const studyLevel: Filter[] = [
+export const study_level: Filter[] = [
   {name:"Necalificat", category:"study_level", query:"necalificat"},
   {name:"Calificat", category:"study_level", query:"calificat"},
   {name:"Student", category:"study_level", query:"student"},
   {name:"Absolvent", category:"study_level", query:"absolvent"},
 ]
 
-export const experienceLevel: Filter[] = [
+export const experience_level: Filter[] = [
   {name:"Fara experienta", category:"experience_level", query:"fara-experienta"},
   {name:"Entry Level (< 2 ani)", category:"experience_level", query:"entry-level"},
-  {name:"Senior level(> 5 ani)", category:"experience_level", query:"senior"},
+  {name:"Senior level(>= 5 ani)", category:"experience_level", query:"senior"},
   {name:"Manager / Executiv", category:"experience_level", query:"manager"}
+]
 
+export const job_category: Filter[] = [
+  {name:"Management", category:"job_category", query:"Management"},
+  {name:"Analiza", category:"job_category", query:"analiza"},
+  {name:"Business", category:"job_category", query:"business"},
+  {name:"IT", category:"job_category", query:"it"},
+  {name:"DevOps", category:"job_category", query:"devops"},
+  {name:"Software Development", category:"job_category", query:"software%20development"},
+  {name:"Mobile Development", category:"job_category", query:"mobile%20development"},
+  {name:"Design", category:"job_category", query:"design"},
+  {name:"Quality Assurance", category:"job_category", query:"quality%20assurance"},
+  {name:"Securitate", category:"job_category", query:"securitate"},
+  {name:"Inteligență Artificială", category:"job_category", query:"inteligenta%20artificiala"},
+  {name:"Data Science", category:"job_category", query:"data%20science"},
+  {name:"Consultana", category:"job_category", query:"consultanta"},
+  {name:"Agricultura", category:"job_category", query:"agricultura"},
+  {name:"Ecologie", category:"job_category", query:"ecologie"},
+  {name:"Inginerie", category:"job_category", query:"inginerie"},
+  {name:"Consultanta", category:"job_category", query:"consultanta"},
+  {name:"Marketing", category:"job_category", query:"marketing"},
+  {name:"Digital", category:"job_category", query:"digital"},
+  {name:"Logistica", category:"job_category", query:"logistica"},
+  {name:"Aprovizionare", category:"job_category", query:"aprovizionare"},
+  {name:"Suport", category:"job_category", query:"suport"},
+  {name:"Relatii Clienti", category:"job_category", query:"relatii%20clienti"},
+  {name:"Cercetare", category:"job_category", query:"cercetare"},
+  {name:"Tehnologie", category:"job_category", query:""},
+  {name:"Educatie", category:"job_category", query:"educatie"},
+  {name:"Dezvoltare Continut", category:"job_category", query:"dezvoltare%20continut"},
+  {name:"Evaluare", category:"job_category", query:"evaluare"},
+  {name:"Formare", category:"job_category", query:"formare"},
+  {name:"Consiliere", category:"job_category", query:"consiliere"},
+  {name:"Consultanta", category:"job_category", query:"consultanta"},
+  {name:"Afaceri", category:"job_category", query:"afaceri"},
+  {name:"Finante", category:"job_category", query:"finante"},
+  {name:"Strategie", category:"job_category", query:"strategie"},
+  {name:"Servicii pentru Clienti", category:"job_category", query:"servicii%20pentru%20clienti"},
+  {name:"Retail", category:"job_category", query:"retail"},
+  {name:"Investitii", category:"job_category", query:"investitii"},
+  {name:"Merchandising", category:"job_category", query:"merchandising"},
+]
+
+export const job_position: Filter[] = [
+  {name:"Manager", category:"job_position", query:"manager"},
+  {name:"Analist Business", category:"job_position", query:"analist%20business"},
+  {name:"Specialist DevOps", category:"job_position", query:"specialist%20devops"},
+  {name:"Dezvoltator Software", category:"job_position", query:"dezvoltator%20software"},
+  {name:"Dezvltator iOS", category:"job_position", query:"dezvoltator%20ios"},
+  {name:"Dezvoltator Android", category:"job_position", query:"dezvoltator%android"},
+  {name:"UX/UI Designer", category:"job_position", query:"ux/ui%20designer"},
+  {name:"QA Engineer", category:"job_position", query:"qa%20engineer"},
+  {name:"Analist", category:"job_position", query:"analist"},
+  {name:"Inginer", category:"job_position", query:"inginer"},
+  {name:"Data Scientist", category:"job_position", query:"data%20scientist"},
+  {name:"Specialist NLP", category:"job_position", query:"specialist%20nlp"},
+  {name:"Consultant", category:"job_position", query:"consultant"},
+  {name:"Coordonator", category:"job_position", query:"coordonator"},
+  {name:"Dezvoltator", category:"job_position", query:"dezvoltator"},
+  {name:"Trainer", category:"job_position", query:"trainer"},
+  {name:"Reprezentant", category:"job_position", query:"reprezentant"},
 ]
 
 export const cities: Filter[] = [

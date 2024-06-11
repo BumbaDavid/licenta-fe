@@ -9,7 +9,7 @@ import {handleError} from "../../handle-error";
 export class JobOffersService {
 
   private jobOffersUrl = 'http://127.0.0.1:8000/api/v1/jobOffers/'
-
+  private jobOffersUrlBypass = 'http://127.0.0.1:8000/api/v1/jobOffers/?all=true&bypass_auth=true'
   constructor(private http: HttpClient) { }
 
   createJobOffer(username: string, data: any): Observable<any>{
@@ -106,9 +106,18 @@ export class JobOffersService {
     }
   }
 
-  getAllJobs(): Observable<any> {
+  getAllJobs(limit?: any): Observable<any> {
+    if(limit)
+      return this.http.get<any>(`${this.jobOffersUrl}?all=true&bypass_auth=true&limit=${limit}`).pipe(catchError(handleError<any>('getAllJobs')))
+
     return this.http.get<any>(`${this.jobOffersUrl}?all=true&bypass_auth=true`).pipe(
       catchError(handleError<any>('getAllJobs'))
+    )
+  }
+
+  getFilteredJobs(query: string): Observable<any> {
+    return this.http.get<any>(`${this.jobOffersUrlBypass}&${query}`).pipe(
+      catchError(handleError<any>('getFilteredJobs'))
     )
   }
 }

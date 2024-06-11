@@ -3,6 +3,8 @@
   display: grid;
   grid-template-columns: 20% 80%; // 20% for buttons, 80% for content
   width: 100%;
+  height: auto;
+  max-height: 100vh;
 
   .button-column {
     display: grid;

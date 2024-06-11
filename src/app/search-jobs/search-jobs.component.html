@@ -1,8 +1,4 @@
-<!-- Header Component -->
-<mat-toolbar>
-</mat-toolbar>
-
-<div class="search-jobs-background">
+<div class="search-jobs-background padding-for-header">
   <!-- Search Bar -->
   <div class="search-container">
     <mat-form-field appearance="outline">
@@ -21,9 +17,8 @@
           <mat-card-content>
             <div class="salary-checkboxes" *ngFor="let jobType of jobTypes">
                 <mat-checkbox
-                  [color]=""
-                  [checked]="selectedTypes[jobType.query]"
-                  (change)="onChange(jobType.query, $event.checked)">
+                  [checked]="allFilters[jobType.category] && allFilters[jobType.category].includes(jobType)"
+                  (change)="onFilterChange(jobType, $event.checked)">
                 {{ jobType.name }}
                 </mat-checkbox>
             </div>
@@ -37,10 +32,10 @@
           </mat-card-header>
           <mat-card-content>
             <div class="checkbox-container">
-              <input matInput type="text" [(ngModel)]="filterText" placeholder="ex: București" class="search-input">
-              <mat-checkbox *ngFor="let city of cities| filterCities: filterText"
-                            [checked]="selectedTypes[city.query]"
-                            (change)="onCityChange(city.query, $event.checked)">
+              <input matInput type="text" [(ngModel)]="filterTextCities" placeholder="ex: București" class="search-input">
+              <mat-checkbox *ngFor="let city of cities| filterCities: filterTextCities"
+                            [checked]="allFilters[city.category] && allFilters[city.category].includes(city)"
+                            (change)="onFilterChange(city, $event.checked)">
                 {{ city.name }}
               </mat-checkbox>
             </div>
@@ -53,7 +48,14 @@
             <mat-card-title>Department</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <!-- Add your department filter controls here -->
+            <div class="checkbox-container">
+              <input matInput type="text" [(ngModel)]="filterTextDepartment" placeholder="ex: Manager" class="search-input">
+              <mat-checkbox *ngFor="let department of job_position| filterCities: filterTextDepartment"
+                            [checked]="allFilters[department.category] && allFilters[department.category].includes(department)"
+                            (change)="onFilterChange(department, $event.checked)">
+                {{ department.name }}
+              </mat-checkbox>
+            </div>
           </mat-card-content>
         </mat-card>
 
@@ -63,7 +65,14 @@
             <mat-card-title>Industry</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <!-- Add your department filter controls here -->
+            <div class="checkbox-container">
+              <input matInput type="text" [(ngModel)]="filtertextIndustry" placeholder="ex: Management" class="search-input">
+              <mat-checkbox *ngFor="let industry of job_category| filterCities: filtertextIndustry"
+                            [checked]="allFilters[industry.category] && allFilters[industry.category].includes(industry)"
+                            (change)="onFilterChange(industry, $event.checked)">
+                {{ industry.name }}
+              </mat-checkbox>
+            </div>
           </mat-card-content>
         </mat-card>
 
@@ -73,11 +82,11 @@
             <mat-card-title>Study Level</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <div class="salary-checkboxes" *ngFor="let study of studyLevel">
+            <div class="salary-checkboxes" *ngFor="let study of study_level">
               <mat-checkbox
                 [color]=""
-                [checked]="selectedTypes[study.query]"
-                (change)="onChange(study.query, $event.checked)">
+                [checked]="allFilters[study.category] && allFilters[study.category].includes(study)"
+                (change)="onFilterChange(study, $event.checked)">
                 {{ study.name }}
               </mat-checkbox>
             </div>
@@ -90,11 +99,11 @@
             <mat-card-title>Experience Level</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <div class="salary-checkboxes" *ngFor="let experience of experienceLevel">
+            <div class="salary-checkboxes" *ngFor="let experience of experience_level">
               <mat-checkbox
                 [color]=""
-                [checked]="selectedTypes[experience.query]"
-                (change)="onChange(experience.query, $event.checked)">
+                [checked]="allFilters[experience.category] && allFilters[experience.category].includes(experience)"
+                (change)="onFilterChange(experience, $event.checked)">
                 {{ experience.name }}
               </mat-checkbox>
             </div>
@@ -105,7 +114,7 @@
 
     <mat-drawer-content class="job-listings">
       <mat-card *ngFor="let job of jobs" class="job-card">
-        <mat-card-header>
+        <mat-card-header (click)="navigateToJob(job.id)">
           <mat-card-title>{{ job.job_title }}</mat-card-title>
           <mat-card-subtitle>{{ job.company_name }} - {{ job.job_location }}</mat-card-subtitle>
         </mat-card-header>
@@ -118,6 +127,22 @@
           <button mat-flat-button class="apply-for-job-button">Aplică acum</button>
         </mat-card-actions>
       </mat-card>
+      <div class="pagination-buttons" *ngIf="totalPages > 1">
+        <!-- Previous Page Button -->
+        <button mat-button *ngIf="currentPage > 2" (click)="goToPage(currentPage - 1)">Pagina precedentă</button>
+
+        <!-- Always show the first page button -->
+        <button mat-button (click)="goToPage(1)">1</button>
+
+        <!-- Show ellipsis if there are skipped pages -->
+        <span *ngIf="currentPage > 2">...</span>
+
+        <!-- Show the current page button -->
+        <button mat-button class="current-page-button" *ngIf="currentPage !== 1" [disabled]="true">{{ currentPage }}</button>
+
+        <!-- Next Page Button -->
+        <button mat-button *ngIf="nextPage" (click)="goToPage(currentPage + 1)">Pagina următoare</button>
+      </div>
     </mat-drawer-content>
   </mat-drawer-container>
 </div>

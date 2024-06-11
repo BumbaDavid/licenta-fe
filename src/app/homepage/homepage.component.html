@@ -1,25 +1,4 @@
-<!-- Header Component -->
-<mat-toolbar [class.scrolled]="isScrolled" class="custom-toolbar">
-  <span>
-    <a href="/" mat-button>
-      <!-- Logo and home link -->
-      <img src="assets/logo.png" alt="Logo" style="height: 40px;">
-    </a>
-    <!-- Navigation Link moved next to the logo -->
-    <a mat-button routerLink="/search-jobs" >Joburi</a>
-  </span>
-  <span class="spacer"></span>
-  <!-- Right-side Links -->
-  <span *ngIf="!isLoggedin" class="account-actions">
-    <a mat-button [routerLink]="['/login']" [queryParams]="{register: 'true'}">Cont nou</a>
-    <a mat-button routerLink="/login">Intra în cont</a>
-  </span>
-  <span *ngIf="isLoggedin" class="account-actions">
-    <a mat-button routerLink="/account">Cont</a>
-  </span>
-</mat-toolbar>
-
-<body>
+<body class = "padding-for-header">
 <div class="container">
   <div class="form-container">
     <mat-card>
@@ -47,7 +26,7 @@
 <div class="main-container">
   <div class="category-header">
     <h2>Alege-ți jobul în funcție de industrie</h2>
-    <p>21.717 joburi disponibile</p> <!-- Update dynamically if needed -->
+    <p>{{ nrJoburiDisponibile }} joburi disponibile</p> <!-- Update dynamically if needed -->
   </div>
   <div class="job-category-container">
     <div *ngFor="let category of categories" class="category-card">
@@ -59,8 +38,8 @@
     </div>
   </div>
   <div class="category-header">
-    <h2>Alege-ți jobul în funcție de industrie</h2>
-    <p>21.717 joburi disponibile</p> <!-- Update dynamically if needed -->
+    <h2>Alege-ți jobul în funcție de departament</h2>
+    <p>{{ nrJoburiDisponibile }} joburi disponibile</p> <!-- Update dynamically if needed -->
   </div>
   <div class="job-category-container">
     <div *ngFor="let category of categories" class="category-card">
@@ -76,7 +55,7 @@
   <!-- Header for the Promoted Jobs Section -->
   <div class="promoted-jobs-header">
     <h2>Anunțuri de angajare promovate</h2>
-    <p>Locuri de muncă în 42 de domenii. Descoperă cele mai noi joburi!</p>
+    <p>Locuri de muncă în {{ nrDepartamente }} de domenii. Descoperă cele mai noi joburi!</p>
   </div>
 
   <!-- Promoted Jobs Cards Grid -->

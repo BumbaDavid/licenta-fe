@@ -73,6 +73,7 @@ export interface RegistrationData {
 }
 
 export interface JobCards {
+  id: string;
   job_title: string;
   job_description: string;
   job_location: string;
