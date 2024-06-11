@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {JobOffersService} from "../services/job-offers.service";
+import {ExperienceLevelMapping, JobTypeMapping, StudyLevelMapping} from "../models/models";
 
 @Component({
   selector: 'app-job-details',
@@ -10,6 +11,9 @@ import {JobOffersService} from "../services/job-offers.service";
 export class JobDetailsComponent implements OnInit {
   jobOffer: any;
   jobId : any;
+  jobType: any;
+  studyLevel: any;
+  experienceLevel: any;
   constructor(
     private route: ActivatedRoute,
     private jobOffersService: JobOffersService
@@ -20,6 +24,10 @@ export class JobDetailsComponent implements OnInit {
     if (this.jobId) {
       this.jobOffersService.getJobOfferById(this.jobId).subscribe({
         next: data => {
+          this.jobType = data?.job_type ?  JobTypeMapping[data?.job_type] : "Unknown Job Type";
+          this.studyLevel = data?.study_level ? StudyLevelMapping[data?.study_level] : "Unkown Study Level";
+          this.experienceLevel = data?.experience_level ? ExperienceLevelMapping[data?.experience_level] : " Unkown Experience Level";
+
           this.jobOffer = data;
           console.log(this.jobOffer)
         },
@@ -37,5 +45,4 @@ export class JobDetailsComponent implements OnInit {
         console.error('error applying :', error)
     })
   }
-
 }

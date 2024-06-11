@@ -1,24 +1,92 @@
-.job-details-container {
-  display: flex;
-  align-items: flex-start; // Aligns items at the top
-  justify-content: center;
+mat-drawer-container {
   gap: 20px; // Space between side cards and main card
+  width: 100%;
+  height: 100vh;
+  margin-top: 1%;
 
-
-  .side-cards {
-    display: flex;
-    flex-direction: column;
+  mat-drawer {
+    width: 35%;
     gap: 20px; // Space between each small card
+    background-color: #E6F0DC;
+    border: none;
+
+    mat-card {
+      width: 200px;
+      margin-left: auto;
+      margin-right: 5%;
+      margin-bottom: 20px;
+      background-color: #ece2b1;
+      box-shadow: 7px 7px 2px 1px rgba(0, 0, 255, .2);
+      border: 2px solid #55883B;
+      min-height: 100px;
+      height: auto;
+
+      mat-card-content {
+        margin-top: 10px;
+        p {
+          display: flex;
+          align-items: center;
+          font-size: 16px;
+        }
+        mat-icon {
+          margin-right: 5px;
+        }
+      }
+    }
   }
 
-  .small-card {
-    width: 200px; // Fixed width for side cards
-  }
 
-  .main-card {
-    margin-left: 3%;
-    flex-grow: 1; // Main card takes up the rest of the space
-    max-width: 800px; // Maximum width of the main card
+
+  mat-drawer-content {
+    width: 65%;
+    background-color: #E6F0DC;
+
+    mat-card {
+      background-color: #ece2b1;
+      box-shadow: 7px 7px 2px 1px rgba(0, 0, 255, .2);
+      border: 2px solid #55883B;
+      flex-grow: 1; // Main card takes up the rest of the space
+      max-width: 800px; // Maximum width of the main card
+
+      mat-card-header {
+        mat-card-title {
+          font-size: 30px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          font-weight: bold;
+        }
+
+        mat-card-subtitle {
+          font-size: 20px;
+          font-style: italic;
+        }
+      }
+
+      mat-card-content {
+
+        h3 {
+          padding-top: 15px;
+          font-size: x-large;
+          font-weight: bold;
+          text-indent: 17px;
+        }
+        p {
+          text-indent: 50px;
+          font-size: 20px;
+        }
+        .text-spacing {
+          text-indent: 50px;
+          line-height: 1.4;
+        }
+
+        button {
+          margin-left: 2px;
+          font-size: 20px;
+          background-color:#9A6735;
+          color: #E6F0DC;
+        }
+      }
+    }
   }
 
   .spacer {

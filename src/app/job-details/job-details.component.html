@@ -1,29 +1,61 @@
-<div class="job-details-container padding-for-header">
-  <div class="side-cards">
-    <mat-card class="small-card">Card 1 Content</mat-card>
-    <mat-card class="small-card">Card 2 Content</mat-card>
-    <mat-card class="small-card">Card 3 Content</mat-card>
-  </div>
+<mat-drawer-container>
+  <mat-drawer mode="side" opened class="padding-for-header">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          {{ jobOffer?.company?.company_name }}
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{ jobOffer?.company?.contact_email}}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p><mat-icon>mail</mat-icon> {{ jobOffer?.company?.contact_email}}</p>
+        <p><mat-icon>phone</mat-icon>{{ jobOffer?.company?.phone }}</p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Criterii job</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p><mat-icon>attach_money</mat-icon> {{ jobOffer?.salary }}</p>
+        <p><mat-icon>place</mat-icon> {{ jobOffer?.location }}</p>
+        <p><mat-icon>school</mat-icon> {{ studyLevel }}</p>
+        <p><mat-icon>work_outline</mat-icon> {{ experienceLevel }}</p>
+        <p><mat-icon>business_center</mat-icon> {{ jobType }}</p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Acțiuni job</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </mat-drawer>
 
-  <mat-card class="main-card">
-    <mat-card-header>
-      <mat-card-title> {{jobOffer?.job_position}}</mat-card-title>
-      <mat-card-subtitle>{{jobOffer?.company?.company_name}} </mat-card-subtitle>
-    </mat-card-header>
 
-    <mat-card-content>
-      <button mat-raised-button color="primary" (click)="applyForJob()">Apply for Job</button>
-      <div class="spacer"></div> <!-- Added div for spacing -->
-      <h3>Requirements</h3>
-      <div *ngFor="let requirement of jobOffer?.requirements">
-        <p>{{requirement}}</p>
-      </div>
-      <div class="spacer"></div> <!-- Added div for spacing -->
-      <h3>Job Description</h3>
-      <p> {{jobOffer?.job_description}} </p>
-      <div class="spacer"></div> <!-- Added div for spacing -->
-      <h3>Company Description</h3>
-      <p>{{jobOffer?.company?.description}} </p>
-    </mat-card-content>
-  </mat-card>
-</div>
+  <mat-drawer-content class="padding-for-header">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title> {{jobOffer?.job_title}}</mat-card-title>
+        <mat-card-subtitle>{{jobOffer?.company?.company_name}} </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <button mat-raised-button class="apply-job" (click)="applyForJob()">Apply for Job</button>
+        <div class="spacer"></div> <!-- Added div for spacing -->
+        <h3>Cerințe</h3>
+        <div *ngFor="let requirement of jobOffer?.requirements">
+          <p>{{requirement}}</p>
+        </div>
+        <div class="spacer"></div> <!-- Added div for spacing -->
+        <h3>Job Description</h3>
+        <p class="text-spacing"> {{jobOffer?.job_description}} </p>
+        <div class="spacer"></div> <!-- Added div for spacing -->
+        <h3>Company Description</h3>
+        <p class="text-spacing">{{jobOffer?.company?.description}} </p>
+      </mat-card-content>
+    </mat-card>
+
+  </mat-drawer-content>
+</mat-drawer-container>

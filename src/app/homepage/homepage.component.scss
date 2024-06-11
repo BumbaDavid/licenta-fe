@@ -89,9 +89,10 @@ html {
   align-items: center;
   text-align: center;
   padding: 10px;
-  background: #9A6735; // Background color
-  box-shadow: none; // No shadow
+  background: #ece2b1; // Background color
+  box-shadow: 7px 7px 2px 1px rgba(0, 0, 255, .2);
   border-radius: 8px;
+  border: 2px solid #55883B;
 
   img {
     width: 100%;
@@ -171,7 +172,7 @@ html {
 
   .promoted-job-card {
     background: #E6F0DC;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Light shadow
+    box-shadow: 7px 7px 2px 1px rgba(0, 0, 255, .2);
     border-radius: 8px; // Rounded corners
     padding: 20px;
     text-align: center;
@@ -212,7 +213,7 @@ html {
 .site-footer {
   width: 100%;
   padding: 20px 0;
-  background: linear-gradient(to bottom, #C1E899, #55883B);
+  background: #55883B;
   text-align: center; // Center the text within the footer
   box-sizing: border-box;
   position: relative;

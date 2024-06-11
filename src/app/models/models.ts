@@ -85,3 +85,27 @@ export interface Filter {
   category: string,
   query: string,
 }
+
+export const JobTypeMapping: { [key: string]: string } = {
+  "full-time": "Full Time",
+  "part-time": "Part Time",
+  "internship": "Internship",
+  "voluntariat": "Voluntariat",
+  "proiect": "Proiect",
+  "sezonier": "Sezonier"
+};
+
+export const StudyLevelMapping:  {[key: string]: string }  = {
+"necalificat" : "Necalificat",
+"calificat" : "Calificat",
+"student" : "Student",
+"absolvent" : "Absolvent",
+}
+
+export const ExperienceLevelMapping: {[key: string]: string } = {
+  "fara-experienta" : "Fara experienta",
+  "entry-level" : "Entry Level (< 2 ani)",
+  "senior" :  "Senior level(>= 5 ani)",
+  "manager" : "Manager",
+  "executiv" : "Executiv",
+}
