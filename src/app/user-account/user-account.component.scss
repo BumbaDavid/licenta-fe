@@ -1,66 +1,104 @@
-.account-container {
-  margin-top: 2%;
-  display: grid;
-  grid-template-columns: 20% 80%; // 20% for buttons, 80% for content
-  width: 100%;
-  height: auto;
-  max-height: 100vh;
+mat-drawer-container {
+  margin: 5% auto;
+  border: 2px solid #55883B;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  border-radius: 10px;
+  height: 80vh;
 
-  .button-column {
-    display: grid;
-    grid-template-rows: auto 1fr auto; // Top buttons, flexible spacer, bottom buttons
-    gap: 10px; // Spacing between buttons
+  mat-drawer-content {
 
-    .spacer {
-      margin-top: 100%;
-      flex-grow: 1;
+
+
+    .job-request-tab {
+      height: 100%;
+      overflow-y: hidden;
+
+      .job-request-list{
+        height: 100%;
+        overflow-y: auto;
+        padding-right: 16px;
+      }
+
+
+      .application-offers {
+        margin-bottom: 20px;
+        width: 50%;
+        box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+        background: #ece2b1;
+        border: 2px solid #55883B;
+      }
+
+      .mat-card-header {
+        align-items: center; // Center title and subtitle vertically
+      }
+      .mat-card-title {
+        font-size: 1.2rem; // Larger font size for title
+      }
+      .mat-card-subtitle {
+        font-size: 1rem; // Standard font size for subtitle
+        color: black; // Grey color for company and location
+      }
+
     }
 
-    button {
-      justify-self: center;
-      width: 50%; // Ensure buttons fill the column
-    }
-  }
+    .cv-tab {
 
-  .content-column {
-    background-color: #eae9e9; // For visual differentiation, can be removed or changed
+      mat-expansion-panel {
+        width: 30%;
+        border-radius: 5px;
+        margin-bottom: 1%;
+        border: 2px solid #55883B;
+        box-shadow: 8px 8px 1px 0.5px rgba(0, 0, 255, .2);
 
-    .example-form {
-      margin-top: 5%;
-      margin-left: 3%;
-      min-width: 150px;
-      max-width: 500px;
-      width: 100%;
-    }
+        mat-panel-title {
+          p {
+            margin-bottom:0;
+            font-size: large;
+            font-weight: 500;
+          }
+        }
 
-    .example-full-width {
-      width: 100%;
-    }
+        .category-item {
+          background-color: #E6F0DC;
+          color: black;
+          border-radius: 3px;
+          border: 2px solid #55883B;
+          margin-bottom: 1%;
 
-    td {
-      padding-right: 8px;
-    }
+          display: flex;
+          align-items: center;
+          padding: 5px;
 
-  }
-}
+          .mat-button {
+            min-width: 0 !important;
+          }
 
-.profile-actions-button {
-  button {
-    margin-right: 10px;
-  }
-}
-@media (max-width: 768px) {
-  .account-container {
-    grid-template-columns: 1fr; // Stack columns on smaller screens
-    grid-template-rows: auto auto 1fr; // Re-order elements: top buttons, bottom buttons, content
+          .icon-group {
 
-    .button-column {
-      grid-template-rows: repeat(5, auto); // All buttons in a single flow
-      order: 1; // Ensure buttons come first
-    }
+            .action-buttons {
+              padding: 0;
+            }
+          }
 
-    .content-column {
-      order: 2; // Content follows buttons
+          p {
+            height: 100%;
+            flex-grow: 1;
+            white-space: nowrap;
+            margin-bottom: 0;
+            padding-left: 1%;
+            font-size: 16px;
+            font-weight: 500;
+            justify-content: center;
+          }
+        }
+
+        .add-new-entry {
+          margin-top: 1%;
+          background-color: #cc6633;
+          color: #E6F0DC;
+        }
+      }
     }
   }
 }

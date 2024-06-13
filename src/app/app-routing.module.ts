@@ -7,15 +7,20 @@ import {JobDetailsComponent} from "./job-details/job-details.component";
 import {UserAccountComponent} from "./user-account/user-account.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {CompanyAccountComponent} from "./company-account/company-account.component";
+import {LayoutComponent} from "./layout/layout.component";
 
 const routes: Routes = [
   { path : 'login', component: LoginComponent},
-  { path : 'homepage', component: HomepageComponent},
-  { path : 'search-jobs', component: SearchJobsComponent},
-  { path : 'job-details/:id', component: JobDetailsComponent},
-  { path : 'account', component: UserAccountComponent, canActivate: [AuthGuard]},
-  { path : 'company-account', component: CompanyAccountComponent, canActivate: [AuthGuard]},
-  { path : '', redirectTo: '/homepage', pathMatch: 'full'}
+  { path : '',
+    component: LayoutComponent,
+    children: [
+      { path : 'homepage', component: HomepageComponent},
+      { path : 'search-jobs', component: SearchJobsComponent},
+      { path : 'job-details/:id', component: JobDetailsComponent},
+      { path : 'account', component: UserAccountComponent, canActivate: [AuthGuard]},
+      { path : 'company-account', component: CompanyAccountComponent, canActivate: [AuthGuard]},
+      { path : '', redirectTo: '/homepage', pathMatch: 'full'}
+    ]},
 ];
 
 @NgModule({

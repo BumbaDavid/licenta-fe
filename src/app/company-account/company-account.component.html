@@ -1,57 +1,78 @@
-<div class="account-container padding-for-header">
-  <div class="button-column">
-    <!-- Group of Top Buttons -->
-    <button mat-raised-button (click)="changeTab(tab.PROFILE)" color="primary">Profile</button>
-    <button mat-raised-button (click)="changeTab(tab.JOBS_OFFERS)" color="primary">Job Offers</button>
-    <button mat-raised-button (click)="changeTab(tab.JOB_OFFER_CREATION)" color="primary">Create Job Offers</button>
+<mat-drawer-container class="global-mat-drawer">
+  <mat-drawer mode="side" opened>
+    <mat-grid-list cols="1" rowHeight="fit">
+      <mat-grid-tile>
+        <div class="button-group ">
+          <button class="top-buttons" mat-raised-button (click)="changeTab(tab.PROFILE)"
+                  [ngClass]="{'active': openedTab === tab.PROFILE }">Profile</button>
+          <button class="top-buttons" mat-raised-button (click)="changeTab(tab.JOBS_OFFERS)"
+                  [ngClass]="{'active': openedTab === tab.JOBS_OFFERS}">My Job Offers</button>
+          <button class="top-buttons" mat-raised-button (click)="changeTab(tab.JOB_OFFER_CREATION)"
+                  [ngClass]="{'active': openedTab === tab.JOB_OFFER_CREATION}">Job Requests</button>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile [rowspan]="4"></mat-grid-tile>
+      <mat-grid-tile>
+        <div class="button-group ">
+          <button class="bottom-buttons" mat-raised-button (click)="changeTab(tab.CLOSE_ACCOUNT)" color="warn">Close Account</button>
+          <button class="bottom-buttons" mat-raised-button (click)="logout()" color="warn">Log-out</button>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-drawer>
 
-    <!-- Spacer for pushing bottom buttons down -->
-    <div class="spacer"></div>
-
-    <!-- Group of Bottom Buttons -->
-    <button mat-raised-button color="warn">Close Account</button>
-    <button mat-raised-button (click)="logout()" color="warn">Log-out</button>
-  </div>
-
-  <div class="content-column">
+  <mat-drawer-content>
     <!-- PROFILE TAB -->
-    <form *ngIf="openedTab === tab.PROFILE" class="example-form" [formGroup]="companyDetailsForm">
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Username</mat-label>
-        <input matInput formControlName="username">
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Company name</mat-label>
-        <input matInput formControlName="company_name">
-      </mat-form-field>
+    <form *ngIf="openedTab === tab.PROFILE" [formGroup]="companyDetailsForm">
+      <div class="profile-tab">
+        <h1>Account Details</h1>
+        <table><tr>
+          <td>
+            <h3>Username</h3>
+            <mat-form-field  appearance="outline">
+              <input matInput formControlName="username">
+            </mat-form-field></td>
+          <td>
+            <h3>Company name</h3>
+            <mat-form-field appearance="outline">
+              <input matInput formControlName="company_name">
+            </mat-form-field></td>
+        </tr></table>
+        <h1>Contact details</h1>
+        <table><tr>
+          <td>
+            <h3>Email</h3>
+            <mat-form-field appearance="outline">
+              <input matInput formControlName="email">
+            </mat-form-field></td>
+          <td>
+            <h3>Phone number</h3>
+            <mat-form-field appearance="outline">
+              <input matInput formControlName="phone">
+          </mat-form-field></td>
+        </tr></table>
 
-      <table class="example-full-width"><tr>
-        <td><mat-form-field class="example-full-width" appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email">
-        </mat-form-field></td>
-        <td><mat-form-field class="example-full-width" appearance="outline">
-          <mat-label>Phone number</mat-label>
-          <input matInput formControlName="phone">
-        </mat-form-field></td>
-      </tr></table>
+        <h1 class="company-description">Company description</h1>
+        <div class="company-description-textarea">
+        <mat-form-field>
+            <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+        </div>
+        <h3>Date joined</h3>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <input matInput formControlName="date_joined">
+        </mat-form-field>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Company description</mat-label>
-        <textarea matInput formControlName="description"></textarea>
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Date Joined</mat-label>
-        <input matInput formControlName="date_joined">
-      </mat-form-field>
-      <div class="profile-actions-button">
-        <button mat-flat-button color="primary" (click)="editProfile()">Edit profile</button>
-        <button mat-flat-button color="accent" [disabled]="!hasChanges()" (click)="updateProfile()">Update profile</button>
+        <div class="action-buttons">
+          <button mat-flat-button class="edit-button" (click)="editProfile()">Edit profile</button>
+          <button mat-flat-button class="update-button" [disabled]="!hasChanges()" (click)="updateProfile()">Update profile</button>
+        </div>
       </div>
     </form>
+
     <!-- JOB OFFERS TAB -->
-    <div class="job-offers-container" *ngIf="openedTab === tab.JOBS_OFFERS">
-      <div class="job-offers-scroll">
+    <div class="job-offers-tab" *ngIf="openedTab === tab.JOBS_OFFERS">
+      <div class="job-offers-list">
         <mat-card *ngFor="let jobOffer of jobOffersData" class="job-offer-card">
           <mat-card-header>
             <mat-card-title>{{ jobOffer.job_position }}</mat-card-title>
@@ -70,9 +91,15 @@
         <button mat-button (click)="createJobOffer()">Create new job offer</button>
       </div>
     </div>
-    <!-- JOB_OFFER_CREATION TAB -->
-    <div *ngIf="openedTab === tab.JOB_OFFER_CREATION">
-      job requests tab
-    </div>
-  </div>
-</div>
+  </mat-drawer-content>
+
+</mat-drawer-container>
+
+<!--  <div class="content-column">-->
+
+<!--    &lt;!&ndash; JOB_OFFER_CREATION TAB &ndash;&gt;-->
+<!--    <div *ngIf="openedTab === tab.JOB_OFFER_CREATION">-->
+<!--      job requests tab-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

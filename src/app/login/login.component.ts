@@ -62,12 +62,17 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       const { username, password } = this.form.value;
       this.authService.login(username, password).subscribe(
-        apiKey => {
-          localStorage.setItem('api_key', apiKey);
-          localStorage.setItem('username', username);
-          this.router.navigate(['/homepage']).then(() => {
-            console.log('navigation to route successful');
-          });
+        response => {
+          if (response.status === 202) {
+            const { api_key, username, account_type } = response.body.data;
+            localStorage.setItem('api_key', api_key)
+            localStorage.setItem('username', username)
+            localStorage.setItem('account_type', account_type)
+
+            this.router.navigate(['/homepage']).then(() => console.log('navigation to route successful'))
+          } else {
+            console.error('login failed with the following error : ', response.statusText)
+          }
         });
     }
   }

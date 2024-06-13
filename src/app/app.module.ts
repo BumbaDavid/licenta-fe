@@ -19,6 +19,7 @@ import { EditJobOfferDialogComponent } from './company-account/edit-job-offer-di
 import {RouterModule} from "@angular/router";
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
 import { FilterCitiesPipe } from './pipes/filter-input.pipe';
+import { LayoutComponent } from './layout/layout.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { FilterCitiesPipe } from './pipes/filter-input.pipe';
     AddItemDialogComponent,
     CompanyAccountComponent,
     EditJobOfferDialogComponent,
-    FilterCitiesPipe
+    FilterCitiesPipe,
+    LayoutComponent
   ],
     imports: [
         BrowserModule,

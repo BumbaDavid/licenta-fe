@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {catchError, map, Observable, of, switchMap} from "rxjs";
 import {Router} from "@angular/router";
 
@@ -15,11 +15,15 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {
   }
 
-  login(username: any, password: any): Observable<string> {
+  login(username: any, password: any): Observable<HttpResponse<any>> {
     const body = {username, password}
-    return this.http.post<{api_key: string}>(this.loginUrl, body).pipe(
-      map(response => response.api_key),
-      catchError(this.handleError<string>('login'))
+    return this.http.post<{data: { api_key: string, username: string, account_type: string }}>(
+      this.loginUrl,
+      body,
+      {observe: 'response'}
+    ).pipe(
+      map(response => response as HttpResponse<{ data: { api_key: string, username: string, account_type: string } }>), // Ensure correct type
+      catchError(this.handleError<HttpResponse<{ data: { api_key: string, username: string, account_type: string } }>>('login'))
     );
   }
 

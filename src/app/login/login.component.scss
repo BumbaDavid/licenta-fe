@@ -1,17 +1,17 @@
-:host {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-}
-
-html, body {
-  height: 100%;
-  margin: 0;
-}
+//:host {
+//  display: flex;
+//  justify-content: center;
+//  height: 100%;
+//}
+//
+//html, body {
+//  height: 100% !important;
+//  margin: 0;
+//}
 
 
 .container {
-  height: 100%; /* Full viewport height */
+  height: 100vh; /* Full viewport height */
   width: 100%;
   background-image: url('/assets/login_background.png'); /* Path to your image */
   background-size: cover; /* Cover the entire container */

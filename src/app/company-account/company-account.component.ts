@@ -9,7 +9,7 @@ import {EditJobOfferDialogComponent} from "./edit-job-offer-dialog/edit-job-offe
 import {MatDialog} from "@angular/material/dialog";
 
 export enum Tab {
-  PROFILE, JOBS_OFFERS, JOB_OFFER_CREATION
+  PROFILE, JOBS_OFFERS, JOB_OFFER_CREATION, CLOSE_ACCOUNT
 }
 @Component({
   selector: 'app-company-account',
@@ -153,7 +153,7 @@ export class CompanyAccountComponent implements OnInit {
 
   editJobOffer(jobOffer: any): void {
     const dialogRef = this.dialog.open(EditJobOfferDialogComponent, {
-      width: '400px',
+      width: '1000px',
       data: jobOffer
     });
 
@@ -176,7 +176,7 @@ export class CompanyAccountComponent implements OnInit {
 
   createJobOffer(): void {
     const dialogRef = this.dialog.open(EditJobOfferDialogComponent, {
-      width: '400px'
+      width: '1500px',
     });
 
     dialogRef.afterClosed().subscribe( result => {

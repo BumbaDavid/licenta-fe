@@ -1,21 +1,2 @@
-<!-- Header Component -->
-<mat-toolbar class="custom-toolbar">
-  <span>
-    <a href="/" mat-button>
-      <!-- Logo and home link -->
-      <img src="assets/logo.png" alt="Logo" style="height: 40px;">
-    </a>
-    <!-- Navigation Link moved next to the logo -->
-    <a mat-button routerLink="/search-jobs" >Joburi</a>
-  </span>
-  <span class="spacer"></span>
-  <!-- Right-side Links -->
-  <span *ngIf="!isLoggedin" class="account-actions">
-    <a mat-button [routerLink]="['/login']" [queryParams]="{register: 'true'}">Cont nou</a>
-    <a mat-button routerLink="/login">Intra în cont</a>
-  </span>
-  <span *ngIf="isLoggedin" class="account-actions">
-    <a mat-button routerLink="/account">Cont</a>
-  </span>
-</mat-toolbar>
+
 <router-outlet></router-outlet>

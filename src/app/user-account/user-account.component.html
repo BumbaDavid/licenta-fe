@@ -1,104 +1,133 @@
-<div class="account-container padding-for-header">
-  <div class="button-column">
-    <!-- Group of Top Buttons -->
-    <button mat-raised-button (click)="changeTab(tab.PROFILE)" color="primary">Profile</button>
-    <button mat-raised-button (click)="changeTab(tab.CV)" color="primary">CV</button>
-    <button mat-raised-button (click)="changeTab(tab.JOB_REQUESTS)" color="primary">Job Requests</button>
-
-    <!-- Spacer for pushing bottom buttons down -->
-    <div class="spacer"></div>
-
-    <!-- Group of Bottom Buttons -->
-    <button mat-raised-button (click)="changeTab(tab.CLOSE_ACCOUNT)" color="warn">Close Account</button>
-    <button mat-raised-button (click)="logout()" color="warn">Log-out</button>
-  </div>
-
-  <div class="content-column">
-    <!-- PROFILE TAB -->
-    <form *ngIf="openedTab === tab.PROFILE" class="example-form" [formGroup]="profileForm">
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>Username</mat-label>
-        <input matInput formControlName="username">
-      </mat-form-field>
-
-      <table class="example-full-width" ><tr>
-        <td><mat-form-field class="example-full-width" appearance="outline">
-          <mat-label>First name</mat-label>
-          <input matInput formControlName="first_name">
-        </mat-form-field></td>
-        <td><mat-form-field class="example-full-width" appearance="outline">
-          <mat-label>Last name</mat-label>
-          <input matInput formControlName="last_name">
-        </mat-form-field></td>
-        <td><mat-form-field class="example-full-width" appearance="outline">
-          <mat-label>Age</mat-label>
-          <input matInput formControlName="age">
-        </mat-form-field></td>
-      </tr></table>
-
-        <mat-form-field class="example-full-width" appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email">
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="legacy">
-          <mat-label>Phone number</mat-label>
-          <mat-icon matSuffix>phone</mat-icon>
-          <input matInput formControlName="phone_number">
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <mat-label>City</mat-label>
-          <textarea matInput formControlName="address"></textarea>
-        </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="outline">
-          <mat-label>Date Joined</mat-label>
-          <input matInput formControlName="date_joined">
-        </mat-form-field>
-        <div class="profile-actions-button">
-          <button mat-flat-button color="primary" (click)="editProfile()">Edit profile</button>
-          <button mat-flat-button color="accent" [disabled]="!hasChanges()" (click)="updateProfile()">Update profile</button>
-        </div>
-    </form>
-
-    <!-- CV TAB -->
-    <form *ngIf="openedTab === tab.CV" class="example-form">
-      <mat-accordion>
-        <mat-expansion-panel *ngFor="let category of cvCategories">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{ category.title }}
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-
-          <div *ngFor="let entryCategory of category.items">
-            {{ entryCategory }}
-            <button mat-mini-fab color="primary" (click)="addNewEntryToCVProfileField(category.title, entryCategory)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-mini-fab color="warn" (click)="deleteItem(entryCategory, category.title)">
-              <mat-icon>delete</mat-icon>
-            </button>
+<mat-drawer-container class="global-mat-drawer">
+    <mat-drawer mode="side" opened>
+      <mat-grid-list cols="1" rowHeight="fit">
+        <mat-grid-tile>
+          <div class="button-group ">
+            <button class="top-buttons" mat-raised-button (click)="changeTab(tab.PROFILE)"
+            [ngClass]="{'active': openedTab === tab.PROFILE }">Profile</button>
+            <button class="top-buttons" mat-raised-button (click)="changeTab(tab.CV)"
+            [ngClass]="{'active': openedTab === tab.CV}">CV</button>
+            <button class="top-buttons" mat-raised-button (click)="changeTab(tab.JOB_REQUESTS)"
+            [ngClass]="{'active': openedTab === tab.JOB_REQUESTS}">Job Requests</button>
           </div>
-          <button mat-button (click)="addNewEntryToCVProfileField(category.title)">Add New</button>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </form>
-    <!-- Job applications TAB -->
-    <div *ngIf="openedTab === tab.JOB_REQUESTS">
-    <div class="job-offers-scroll">
-      <mat-card *ngFor="let jobOffer of appliedJobs" class="job-offer-card">
-        <mat-card-header>
-          <mat-card-title>{{ jobOffer.job_position }}</mat-card-title>
-          <mat-card-subtitle>{{ jobOffer.job_category }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>{{ jobOffer.job_description }}</p>
-        </mat-card-content>
-        <mat-card-actions class="job-offer-actions">
-          <button mat-button [routerLink]="['/job-details',jobOffer.id]">See Job offer page</button>
-          <button mat-button (click)="cancelApplication(jobOffer.id)">Cancel application</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-  </div>
-  </div>
-</div>
+        </mat-grid-tile>
+      <mat-grid-tile [rowspan]="4"></mat-grid-tile>
+        <mat-grid-tile>
+          <div class="button-group ">
+            <button class="bottom-buttons" mat-raised-button (click)="changeTab(tab.CLOSE_ACCOUNT)">Close Account</button>
+            <button class="bottom-buttons" mat-raised-button (click)="logout()">Log-out</button>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-drawer>
+
+    <mat-drawer-content>
+<!--       PROFILE TAB-->
+      <form *ngIf="openedTab === tab.PROFILE" [formGroup]="profileForm">
+        <div class="profile-tab">
+          <h1>Account Details</h1>
+          <h3 class="username">Username</h3>
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="username">
+          </mat-form-field>
+
+          <h1>Personal information</h1>
+          <table><tr>
+            <td>
+              <h3>First name</h3>
+              <mat-form-field  appearance="outline">
+                <input matInput formControlName="first_name">
+              </mat-form-field></td>
+            <td>
+              <h3>Last name</h3>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="last_name">
+              </mat-form-field></td>
+            <td>
+              <h3>Age</h3>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="age">
+              </mat-form-field></td>
+          </tr></table>
+
+          <h1>Contact information</h1>
+          <table><tr>
+            <td>
+              <h3>Email</h3>
+              <mat-form-field  appearance="outline">
+                <input matInput formControlName="email">
+              </mat-form-field></td>
+            <td>
+              <h3>Phone number</h3>
+              <mat-form-field appearance="outline">
+                <mat-icon matSuffix>phone</mat-icon>
+                <input matInput formControlName="phone_number">
+              </mat-form-field></td>
+            <td>
+              <h3>Address</h3>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="address">
+              </mat-form-field></td>
+          </tr></table>
+
+          <h3 class="username">Date joined</h3>
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="date_joined">
+          </mat-form-field>
+
+          <div class="action-buttons">
+            <button mat-flat-button class="edit-button" (click)="editProfile()">Edit profile</button>
+            <button mat-flat-button class="update-button" [disabled]="!hasChanges()" (click)="updateProfile()">Update profile</button>
+          </div>
+        </div>
+      </form>
+
+<!--       JOB APPLICATION TAB-->
+      <div *ngIf="openedTab === tab.JOB_REQUESTS" class="job-request-tab">
+            <div class="job-request-list">
+              <mat-card *ngFor="let jobOffer of appliedJobs" class="application-offers">
+                <mat-card-header>
+                  <mat-card-title>{{ jobOffer.job_position }}</mat-card-title>
+                  <mat-card-subtitle>{{ jobOffer.job_category }}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>{{ jobOffer.job_description }}</p>
+                </mat-card-content>
+                <mat-card-actions >
+                  <button mat-button [routerLink]="['/job-details',jobOffer.id]">See Job offer page</button>
+                  <button mat-button (click)="cancelApplication(jobOffer.id)">Cancel application</button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+      </div>
+<!--      CV TAB-->
+      <form *ngIf="openedTab === tab.CV" class="cv-tab">
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let category of cvCategories">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <p>{{ category.title }}</p>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div *ngFor="let entryCategory of category.items" class="category-item">
+              <div class="icon-group">
+                <button mat-button class="action-buttons" (click)="addNewEntryToCVProfileField(category.title, entryCategory)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-button class="action-buttons" (click)="deleteItem(entryCategory, category.title)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+              <p>
+                {{ entryCategory }}
+              </p>
+            </div>
+            <button class="add-new-entry" mat-button (click)="addNewEntryToCVProfileField(category.title)">Add New</button>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </form>
+    </mat-drawer-content>
+</mat-drawer-container>
+
+

@@ -7,8 +7,10 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
   templateUrl: './edit-job-offer-dialog.component.html',
   styleUrls: ['./edit-job-offer-dialog.component.scss']
 })
-export class EditJobOfferDialogComponent implements OnInit {
-  editJobOfferForm: FormGroup;
+export class EditJobOfferDialogComponent {
+  editJobOfferFormFirst: FormGroup;
+  editJobOfferFormSecond: FormGroup;
+  editJobOfferFormThird: FormGroup;
   initialFormValues: any;
   isEditMode: boolean;
 
@@ -18,23 +20,35 @@ export class EditJobOfferDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data?: any
   ) {
     this.isEditMode = !!data;
-    this.editJobOfferForm = this.fb.group({
+    this.editJobOfferFormFirst = this.fb.group({
+      job_title: data?.job_title || '',
       job_position: data?.job_position || '',
       job_category: data?.job_category || '',
       job_description: data?.job_description || '',
+    });
+    this.editJobOfferFormSecond = this.fb.group({
+      experience_level: data?.experience_level || '',
+      job_type: data?.job_type || '',
+      study_level: data?.study_level || '',
       location: data?.location || '',
-      requirements: this.fb.array([]),
       salary: data?.salary || ''
     });
+
+    this.editJobOfferFormThird = this.fb.group({
+      requirements: this.fb.array([]),
+    })
     this.setRequirements(data?.requirements || []);
-    this.initialFormValues = this.editJobOfferForm.getRawValue();
+
+    this.initialFormValues = {
+      ...this.editJobOfferFormFirst.getRawValue(),
+      ...this.editJobOfferFormSecond.getRawValue(),
+      ...this.editJobOfferFormThird.getRawValue()
+    }
   }
 
-  ngOnInit(): void {
-  }
 
   get requirements(): FormArray {
-    return this.editJobOfferForm.get('requirements') as FormArray;
+    return this.editJobOfferFormThird.get('requirements') as FormArray;
   }
 
   setRequirements(requirements: any): void {
@@ -57,7 +71,11 @@ export class EditJobOfferDialogComponent implements OnInit {
   }
 
   getChangedValues(): any {
-    const currentValues = this.editJobOfferForm.getRawValue();
+    const currentValues = {
+      ...this.editJobOfferFormFirst.getRawValue(),
+      ...this.editJobOfferFormSecond.getRawValue(),
+      ...this.editJobOfferFormThird.getRawValue()
+    }
     const changedValues: any = {};
 
     for (const key in currentValues) {
@@ -75,7 +93,7 @@ export class EditJobOfferDialogComponent implements OnInit {
   }
 
   onSave(): void {
-    if (this.editJobOfferForm.valid) {
+    if (this.editJobOfferFormFirst.valid && this.editJobOfferFormSecond.valid && this.editJobOfferFormThird.valid) {
       const changedValues = this.getChangedValues();
       const result = this.isEditMode ? {
         id: this.data.id,
@@ -89,4 +107,6 @@ export class EditJobOfferDialogComponent implements OnInit {
   onDiscard(): void {
     this.dialogRef.close();
   }
+
+
 }

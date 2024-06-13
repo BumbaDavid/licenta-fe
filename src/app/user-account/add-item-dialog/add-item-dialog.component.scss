@@ -1,0 +1,27 @@
+ h1 {
+    font-size: 20px;
+    font-weight: 550;
+  }
+
+ h3 {
+   padding-left: 1%;
+   margin-bottom: 0;
+ }
+
+ mat-form-field {
+   background-color: white;
+   margin-bottom: 1.25em;
+ }
+
+ .save-button {
+   background-color: #8bdcd7;
+   color: black;
+ }
+ .cancel-button {
+   background-color: #896B4E;
+   color: #E6F0DC;
+ }
+
+ .border-field {
+   border: 2px solid #e78169 !important;
+ }

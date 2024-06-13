@@ -5,13 +5,7 @@ import {Component, HostListener, OnInit} from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent{
   title = 'licenta-fe';
-  isLoggedin = false;
 
-  ngOnInit(): void {
-    if(localStorage.getItem('api_key')){
-      this.isLoggedin = true;
-    }
-  }
 }

@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mat-form-field-wrapper {
@@ -18,3 +17,132 @@ mat-form-field {
 .padding-for-header {
   padding-top: 64px;
 }
+
+.mat-drawer-inner-container {
+  overflow: hidden !important;
+}
+
+mat-dialog-container {
+  border: 3px solid #55883B !important;
+  background-color: #E6F0DC !important;
+}
+
+.global-mat-drawer {
+  mat-drawer {
+    width: 10%;
+    height: 100%;
+    background-color: #E6F0DC;
+    overflow: hidden;
+
+    mat-grid-list {
+      width: 100%;
+      height: 100%;
+
+      mat-grid-tile {
+        width: 100%;
+
+        .button-group {
+          display: flex;
+          flex-direction: column;
+          width: 90%;
+
+          button {
+            margin: 1%;
+          }
+
+          .top-buttons {
+            background-color: transparent;
+            border: 1px solid  #55883B;
+            color: black;
+
+            &.active {
+              background-color:#9A6735;
+              border: none;
+              color: white;
+            }
+
+          }
+          .bottom-buttons {
+            background-color: #896B4E;
+          }
+        }
+
+      }
+    }
+  }
+  mat-drawer-content {
+    background-color: #E6F0DC;
+    width: 90%;
+    padding-left: 1%;
+    padding-top: 1%;
+    height: 100%;
+    overflow: hidden;
+
+    mat-form-field {
+      border: 1px solid grey;
+      background-color: white;
+      margin: 2px;
+    }
+
+    .profile-tab {
+      td {
+        h3 {
+          margin-left: 1%;
+          margin-bottom: 0;
+        }
+      }
+
+      h1 {
+        margin-top: 1%;
+        font-weight: 500;
+        margin-left: 0.16%;
+        margin-bottom: 0;
+      }
+
+      .username {
+        margin-bottom: 0;
+        margin-left: 0.16%;
+      }
+
+      .action-buttons {
+        margin-top: 2%;
+
+        button {
+          margin: 0.1%;
+        }
+        .edit-button {
+          background-color: #cc6633;
+          color: #E6F0DC;
+        }
+        .update-button {
+          background-color: #8bdcd7;
+          color: black;
+        }
+      }
+    }
+  }
+}
+
+.company-description-textarea {
+  mat-form-field {
+    width: 50%;
+    .mat-form-field-infix {
+      width: 100%;
+    }
+  }
+}
+
+.mat-step-header {
+  .mat-step-icon-selected {
+    background-color: #55883B !important;
+    color: #E6F0DC !important;
+  }
+}
+
+.mat-step-header .mat-step-icon-state-edit {
+  background-color: #55883B !important;
+  color: #E6F0DC !important;
+}
+
+
+

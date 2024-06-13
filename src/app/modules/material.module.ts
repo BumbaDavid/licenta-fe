@@ -15,6 +15,9 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatStepperModule} from "@angular/material/stepper";
 
 
 const MaterialComponent =[
@@ -34,7 +37,10 @@ const MaterialComponent =[
   MatDialogModule,
   MatSidenavModule,
   MatCheckboxModule,
-  BrowserAnimationsModule
+  BrowserAnimationsModule,
+  MatGridListModule,
+  MatDividerModule,
+  MatStepperModule
 ];
 
 @NgModule({
