@@ -42,7 +42,7 @@
       </mat-card-header>
 
       <mat-card-content>
-        <button mat-raised-button class="apply-job" (click)="applyForJob()">Apply for Job</button>
+        <button mat-raised-button class="apply-job" *ngIf="account_type == 'normal'" (click)="applyForJob()">Apply for Job</button>
         <div class="spacer"></div> <!-- Added div for spacing -->
         <h3>Cerințe</h3>
         <div *ngFor="let requirement of jobOffer?.requirements">

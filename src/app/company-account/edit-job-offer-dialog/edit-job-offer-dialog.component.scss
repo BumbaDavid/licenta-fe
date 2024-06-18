@@ -11,13 +11,33 @@ mat-stepper{
 
 }
 mat-card {
+  width: 100%;
   background-color: #ece2b1;
   transition: none;
   box-shadow: none !important;
 
   mat-form-field {
+    width: 100%;
     background-color: white;
     border: 2px solid #9A6735;
+
+    textarea {
+      padding-left: 1%;
+      overflow-y: auto;
+      resize: none;
+      height: 70px;
+    }
+  }
+}
+
+.requirements {
+  background-color: white;
+  border: 2px solid #9A6735;
+  textarea {
+    padding-left: 1%;
+    overflow-y: auto;
+    resize: none;
+    height: 50px;
   }
 }
 

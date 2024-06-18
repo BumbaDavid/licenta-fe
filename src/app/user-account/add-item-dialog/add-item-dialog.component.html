@@ -1,10 +1,12 @@
 <div class="dialog-border">
   <h1 mat-dialog-title>{{isEdit ? 'Edit' : 'Add new'}} {{ data.category }} {{data.currentEntry}}</h1>
   <div mat-dialog-content>
-    <h3>Old value</h3>
-    <mat-form-field *ngIf="isEdit" class="border-field" appearance="outline">
-      <input matInput placeholder="Current value" [value]="data.currentEntry" disabled>
-    </mat-form-field>
+    <div *ngIf="isEdit">
+      <h3>Old value</h3>
+      <mat-form-field class="border-field" appearance="outline">
+        <input matInput placeholder="Current value" [value]="data.currentEntry" disabled>
+      </mat-form-field>
+    </div>
     <mat-form-field class="full-width"  appearance="outline">
       <input matInput placeholder="{{isEdit ? 'New value' : 'Enter new item'}}" [(ngModel)]="newItem">
     </mat-form-field>

@@ -9,6 +9,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {UserCvService} from "../services/user-cv.service";
 import {JobOffersService} from "../services/job-offers.service";
 import {Observable} from "rxjs";
+import {UserCvCardComponent} from "../user-cv-card/user-cv-card.component";
 
 export enum Tab {
   PROFILE, CV, JOB_REQUESTS, CLOSE_ACCOUNT
@@ -64,6 +65,7 @@ export class UserAccountComponent implements OnInit {
       localStorage.removeItem('username')
       localStorage.removeItem('lastOpenedTab')
       this.router.navigate(['/homepage']).then(() => {
+        window.location.reload()
         console.log('logout successful')
       })
     })
@@ -193,6 +195,19 @@ export class UserAccountComponent implements OnInit {
         this.getAppliedJobs();
       },
       error: (error:any) => console.error('error canceling application', error)
+    })
+  }
+
+  openCV() {
+    const userCVData = {
+      ...this.initialFormValues,
+      'categories': {
+        ...this.cvCategories
+      }
+    };
+    this.dialog.open(UserCvCardComponent, {
+      width: '700px',
+      data: userCVData
     })
   }
 

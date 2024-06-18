@@ -20,6 +20,7 @@ import {RouterModule} from "@angular/router";
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
 import { FilterCitiesPipe } from './pipes/filter-input.pipe';
 import { LayoutComponent } from './layout/layout.component';
+import { UserCvCardComponent } from './user-cv-card/user-cv-card.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { LayoutComponent } from './layout/layout.component';
     CompanyAccountComponent,
     EditJobOfferDialogComponent,
     FilterCitiesPipe,
-    LayoutComponent
+    LayoutComponent,
+    UserCvCardComponent
   ],
     imports: [
         BrowserModule,

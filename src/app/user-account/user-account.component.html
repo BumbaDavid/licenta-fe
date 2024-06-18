@@ -9,9 +9,10 @@
             [ngClass]="{'active': openedTab === tab.CV}">CV</button>
             <button class="top-buttons" mat-raised-button (click)="changeTab(tab.JOB_REQUESTS)"
             [ngClass]="{'active': openedTab === tab.JOB_REQUESTS}">Job Requests</button>
+            <button class="top-buttons" mat-raised-button (click)="openCV()">See CV</button>
           </div>
         </mat-grid-tile>
-      <mat-grid-tile [rowspan]="4"></mat-grid-tile>
+      <mat-grid-tile [rowspan]="2"></mat-grid-tile>
         <mat-grid-tile>
           <div class="button-group ">
             <button class="bottom-buttons" mat-raised-button (click)="changeTab(tab.CLOSE_ACCOUNT)">Close Account</button>

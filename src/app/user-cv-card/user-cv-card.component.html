@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>{{userCVData?.first_name}} {{userCVData?.last_name}}'s CV</h1>
+<mat-dialog-content>
+  <mat-drawer-container>
+    <mat-drawer mode="side" opened>
+      <h1>Contact information</h1>
+      <div class="contact-info">
+        <p><mat-icon>phone</mat-icon><span>{{ userCVData?.phone_number}}</span></p>
+        <p><mat-icon>email</mat-icon><span>{{ userCVData?.email}}</span></p>
+        <p><mat-icon>home</mat-icon><span> {{ userCVData?.address }}</span></p>
+      </div>
+      <mat-divider></mat-divider>
+      <h1>Languages</h1>
+      <mat-list *ngFor="let language of userCVData?.categories[3].items">
+        <mat-list-item>{{language}}</mat-list-item>
+      </mat-list>
+      <mat-divider></mat-divider>
+      <h1>Hobbies</h1>
+      <mat-list *ngFor="let hobby of userCVData?.categories[2].items">
+        <mat-list-item>{{hobby}}</mat-list-item>
+      </mat-list>
+    </mat-drawer>
+    <mat-drawer-content>
+      <h1>Abilities</h1>
+      <mat-list *ngFor="let ability of userCVData?.categories[0].items">
+        <mat-list-item>{{ability}}</mat-list-item>
+      </mat-list>
+      <h1>Studies</h1>
+      <mat-list *ngFor="let study of userCVData?.categories[4].items">
+        <mat-list-item>{{study}}</mat-list-item>
+      </mat-list>
+      <h1>Experiences</h1>
+      <mat-list *ngFor="let experience of userCVData?.categories[4].items">
+        <mat-list-item>{{experience}}</mat-list-item>
+      </mat-list>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</mat-dialog-content>
+

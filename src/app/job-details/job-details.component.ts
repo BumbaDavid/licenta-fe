@@ -14,12 +14,17 @@ export class JobDetailsComponent implements OnInit {
   jobType: any;
   studyLevel: any;
   experienceLevel: any;
+
+  account_type: any;
+  loggedUser: any;
   constructor(
     private route: ActivatedRoute,
     private jobOffersService: JobOffersService
   ) { }
 
   ngOnInit(): void {
+      this.account_type = localStorage.getItem("account_type")
+
      this.jobId = this.route.snapshot.paramMap.get('id');
     if (this.jobId) {
       this.jobOffersService.getJobOfferById(this.jobId).subscribe({

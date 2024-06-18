@@ -7,8 +7,8 @@
                   [ngClass]="{'active': openedTab === tab.PROFILE }">Profile</button>
           <button class="top-buttons" mat-raised-button (click)="changeTab(tab.JOBS_OFFERS)"
                   [ngClass]="{'active': openedTab === tab.JOBS_OFFERS}">My Job Offers</button>
-          <button class="top-buttons" mat-raised-button (click)="changeTab(tab.JOB_OFFER_CREATION)"
-                  [ngClass]="{'active': openedTab === tab.JOB_OFFER_CREATION}">Job Requests</button>
+          <button class="top-buttons" mat-raised-button (click)="changeTab(tab.JOB_APPLICATIONS)"
+                  [ngClass]="{'active': openedTab === tab.JOB_APPLICATIONS}">Job Requests</button>
         </div>
       </mat-grid-tile>
       <mat-grid-tile [rowspan]="4"></mat-grid-tile>
@@ -82,24 +82,34 @@
             <p>{{ jobOffer.job_description }}</p>
           </mat-card-content>
           <mat-card-actions class="job-offer-actions">
-            <button mat-button (click)="editJobOffer(jobOffer)">Edit Job-offer</button>
+            <button mat-button (click)="editJobOffer(jobOffer)">Edit Job offer</button>
             <button mat-button [routerLink]="['/job-details',jobOffer.id]">See Job offer page</button>
+            <button mat-button (click)="deleteJobOffer(jobOffer)">Delete Job offer</button>
           </mat-card-actions>
         </mat-card>
       </div>
-      <div>
+      <div class="create-job-offer-button">
         <button mat-button (click)="createJobOffer()">Create new job offer</button>
       </div>
     </div>
+
+    <!--  JOB APPLICATIONS TAB-->
+    <div class="job-offers-tab" *ngIf="openedTab === tab.JOB_APPLICATIONS">
+      <div class="job-offers-list">
+        <mat-card *ngFor="let application of jobApplications" class="job-offer-card">
+          <mat-card-header>
+            <mat-card-title> Applicant for {{ application?.job_offer?.job_position }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ application?.applicant?.user?.first_name}} {{ application?.applicant?.user?.last_name}} applied for the {{ application?.job_offer?.job_position }} position</p>
+          </mat-card-content>
+          <mat-card-actions class="job-offer-actions">
+            <button mat-button >See applicant CV</button>
+            <button mat-button [routerLink]="['/job-details',application?.job_offer?.id]">See Job offer page</button>
+            <button mat-button >Actions</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
   </mat-drawer-content>
-
 </mat-drawer-container>
-
-<!--  <div class="content-column">-->
-
-<!--    &lt;!&ndash; JOB_OFFER_CREATION TAB &ndash;&gt;-->
-<!--    <div *ngIf="openedTab === tab.JOB_OFFER_CREATION">-->
-<!--      job requests tab-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->

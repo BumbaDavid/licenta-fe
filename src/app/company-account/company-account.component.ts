@@ -7,9 +7,11 @@ import {JobOffersService} from "../services/job-offers.service";
 import {map, Observable, of, switchMap} from "rxjs";
 import {EditJobOfferDialogComponent} from "./edit-job-offer-dialog/edit-job-offer-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {JobApplicationsService} from "../services/job-applications.service";
+import {UserCvCardComponent} from "../user-cv-card/user-cv-card.component";
 
 export enum Tab {
-  PROFILE, JOBS_OFFERS, JOB_OFFER_CREATION, CLOSE_ACCOUNT
+  PROFILE, JOBS_OFFERS, JOB_APPLICATIONS, CLOSE_ACCOUNT
 }
 @Component({
   selector: 'app-company-account',
@@ -23,11 +25,14 @@ export class CompanyAccountComponent implements OnInit {
   initialFormValues: any;
   isEditing: boolean = false;
   _username : string | undefined;
+
   jobOffersData: any | undefined;
+  jobApplications: any | undefined;
 
   constructor(private authService: AuthService,
               private accountService: AccountService,
               private jobOffersService: JobOffersService,
+              private jobApplicationsService: JobApplicationsService,
               private dialog: MatDialog,
               private router: Router,
               private fb: FormBuilder) {
@@ -46,6 +51,7 @@ export class CompanyAccountComponent implements OnInit {
     const lastTab = localStorage.getItem('lastOpenedTab')
     this.openedTab = lastTab ? Number(lastTab) : Tab.PROFILE;
     this.loadData();
+    this.loadApplications();
   }
 
   loadData() {
@@ -75,6 +81,7 @@ export class CompanyAccountComponent implements OnInit {
     this.authService.logout().subscribe(() => {
       localStorage.removeItem('api_key');
       this.router.navigate(['/homepage']).then(() => {
+        window.location.reload();
         console.log('logout successful')
       })
     })
@@ -170,26 +177,50 @@ export class CompanyAccountComponent implements OnInit {
     });
   }
 
-  seeJobOffer(jobOffer: any): void {
-
-  }
-
   createJobOffer(): void {
     const dialogRef = this.dialog.open(EditJobOfferDialogComponent, {
-      width: '1500px',
+      width: '1000px',
     });
 
     dialogRef.afterClosed().subscribe( result => {
       if(result) {
         console.log(result)
-        // this.jobOffersService.createJobOffer(this._username || '', result).subscribe({
-        //   next: () => {
-        //     this.loadData()
-        //   },
-        //   error: error => console.error("error creating new job offer", error)
-        // })
+        this.jobOffersService.createJobOffer(this._username || '', result).subscribe({
+          next: () => {
+            this.loadData()
+          },
+          error: error => console.error("error creating new job offer", error)
+        })
       }
     })
+  }
+
+  deleteJobOffer(jobOffer: any): void {
+    console.log(jobOffer)
+    this.jobOffersService.deleteJobOffer(this._username || '', jobOffer).subscribe({
+      next: () => {
+        this.loadData()
+      },
+      error: error => console.error("error deleting job offer", error)
+    })
+  }
+
+   loadApplications() {
+    this.jobApplicationsService.getAllJobApplications().subscribe({
+      next: jobApplicationsData => {
+        this.jobApplications = jobApplicationsData?.job_applications
+        console.log(jobApplicationsData)
+      },
+      error: error => console.error("error fetching job applications", error)
+    })
+  }
+
+  openCV() {
+
+    //const userCVData =
+   // this.dialog.open(UserCvCardComponent, {
+   //    width: '700px',
+   //  })
   }
 
 }

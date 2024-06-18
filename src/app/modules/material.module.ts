@@ -18,6 +18,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatStepperModule} from "@angular/material/stepper";
+import {MatListModule} from "@angular/material/list";
 
 
 const MaterialComponent =[
@@ -40,7 +41,8 @@ const MaterialComponent =[
   BrowserAnimationsModule,
   MatGridListModule,
   MatDividerModule,
-  MatStepperModule
+  MatStepperModule,
+  MatListModule,
 ];
 
 @NgModule({

@@ -61,6 +61,21 @@ export class JobOffersService {
     )
   }
 
+  deleteJobOffer(username: string, jobOffer: any): Observable<any> {
+    const apiKey = localStorage.getItem('api_key')
+    if(apiKey) {
+      const headers = new HttpHeaders({
+        'Authorization' : `ApiKey ${username}:${apiKey}`
+      })
+      const id = jobOffer?.id || '-1';
+      return this.http.delete(`${this.jobOffersUrl}${id}`, {headers}).pipe(
+        catchError(handleError<any>('deleteJobOffer'))
+      )
+    } else {
+      return of()
+    }
+  }
+
   applyForJob(jobId: any): Observable<any> {
     const apiKey = localStorage.getItem('api_key')
     const username = localStorage.getItem('username')

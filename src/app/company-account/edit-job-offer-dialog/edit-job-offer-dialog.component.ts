@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {ExperienceLevels, JobCategories, JobPositions, JobTypes, StudyLevels} from "../../models/models";
 
 @Component({
   selector: 'app-edit-job-offer-dialog',
@@ -13,6 +14,12 @@ export class EditJobOfferDialogComponent {
   editJobOfferFormThird: FormGroup;
   initialFormValues: any;
   isEditMode: boolean;
+
+  jobPositions = JobPositions;
+  jobCategories = JobCategories;
+  experienceLevels = ExperienceLevels;
+  jobTypes = JobTypes;
+  studyLevels = StudyLevels;
 
   constructor(
     private fb: FormBuilder,

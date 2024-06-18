@@ -109,3 +109,89 @@ export const ExperienceLevelMapping: {[key: string]: string } = {
   "manager" : "Manager",
   "executiv" : "Executiv",
 }
+
+export const JobCategories: string[] = [
+  "Management",
+  "Analiza",
+  "Business",
+  "IT",
+  "DevOps",
+  "Software Development",
+  "Mobile Development",
+  "Design",
+  "Quality Assurance",
+  "Securitate",
+  "Inteligență Artificială",
+  "Data Science",
+  "Consultana",
+  "Agricultura",
+  "Ecologie",
+  "Inginerie",
+  "Consultanta",
+  "Marketing",
+  "Digital",
+  "Logistica",
+  "Aprovizionare",
+  "Suport",
+  "Relatii Clienti",
+  "Cercetare",
+  "Tehnologie",
+  "Educatie",
+  "Dezvoltare Continut",
+  "Evaluare",
+  "Formare",
+  "Consiliere",
+  "Consultanta",
+  "Afaceri",
+  "Finante",
+  "Strategie",
+  "Servicii pentru Clienti",
+  "Retail",
+  "Investitii",
+  "Merchandising"
+];
+
+export const JobPositions: string[] = [
+  "Manager",
+  "Analist Business",
+  "Specialist DevOps",
+  "Dezvoltator Software",
+  "Dezvltator iOS",
+  "Dezvoltator Android",
+  "UX/UI Designer",
+  "QA Engineer",
+  "Analist",
+  "Inginer",
+  "Data Scientist",
+  "Specialist NLP",
+  "Consultant",
+  "Coordonator",
+  "Dezvoltator",
+  "Trainer",
+  "Reprezentant"
+];
+
+export const JobTypes: string[] = [
+  "full-time",
+  "part-time",
+  "internship",
+  "voluntariat",
+  "proiect",
+  "sezonier",
+];
+
+export const StudyLevels: string[] = [
+  "Necalificat",
+  "Calificat",
+  "Student",
+  "Absolvent"
+];
+
+export const ExperienceLevels: string[] = [
+  "fara-experienta",
+  "entry-level",
+  "senior",
+  "manager",
+  "executiv"
+];
+

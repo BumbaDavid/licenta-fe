@@ -1,11 +1,10 @@
-<!-- edit-job-offer-dialog.component.html -->
 <h1 mat-dialog-title>{{ isEditMode ? 'Edit Job Offer' : 'Create Job Offer' }}</h1>
 <div mat-dialog-content>
   <mat-stepper [linear]="true" #stepper>
     <mat-step [stepControl]="editJobOfferFormFirst" state="edit">
       <form [formGroup]="editJobOfferFormFirst">
         <ng-template matStepLabel>Fill out job offer details</ng-template>
-        <mat-grid-list cols="4" rowHeight="1:1" gutterSize="10px">
+        <mat-grid-list cols="3" rowHeight="2:1" gutterSize="10px">
           <mat-grid-tile [colspan]="1" [rowspan]="1">
             <mat-card>
               <mat-card-header>
@@ -19,22 +18,44 @@
             </mat-card>
           </mat-grid-tile>
           <mat-grid-tile [colspan]="1" [rowspan]="1">
-            <h3>Job position</h3>
-            <mat-form-field class="full-width">
-              <input matInput formControlName="job_position">
-            </mat-form-field>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Job position</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-form-field  appearance="outline">
+                  <mat-select formControlName="job_position">
+                    <mat-option *ngFor="let position of jobPositions" [value]="position">{{ position}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-card-content>
+            </mat-card>
           </mat-grid-tile>
           <mat-grid-tile [colspan]="1" [rowspan]="1">
-            <h3>Job Category</h3>
-            <mat-form-field class="full-width">
-              <input matInput formControlName="job_category">
-            </mat-form-field>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Job Category</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-form-field  appearance="outline">
+                  <mat-select formControlName="job_category">
+                    <mat-option *ngFor="let category of jobCategories" [value]="category">{{ category }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-card-content>
+            </mat-card>
           </mat-grid-tile>
-          <mat-grid-tile [colspan]="1" [rowspan]="1">
-            <h3>Job Description</h3>
-            <mat-form-field class="full-width">
-              <textarea matInput formControlName="job_description"></textarea>
-            </mat-form-field>
+          <mat-grid-tile [colspan]="3" [rowspan]="1">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Job Description</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-form-field  appearance="outline">
+                  <textarea matInput formControlName="job_description"></textarea>
+                </mat-form-field>
+              </mat-card-content>
+            </mat-card>
           </mat-grid-tile>
         </mat-grid-list>
         <div>
@@ -45,26 +66,74 @@
 
     <mat-step [stepControl]="editJobOfferFormSecond" label="fill out your address">
       <form [formGroup]="editJobOfferFormSecond" state="edit">
-        <h3>Experience level</h3>
-        <mat-form-field>
-          <input matInput formControlName="experience_level">
-        </mat-form-field>
-        <h3>Job type</h3>
-        <mat-form-field>
-          <input matInput formControlName="job_type">
-        </mat-form-field>
-        <h3>Study level</h3>
-        <mat-form-field>
-          <input matInput formControlName="study_level">
-        </mat-form-field>
-        <h3>Location</h3>
-        <mat-form-field>
-          <input matInput formControlName="location">
-        </mat-form-field>
-        <h3>Salary</h3>
-        <mat-form-field>
-          <input matInput formControlName="salary">
-        </mat-form-field>
+        <mat-grid-list cols="6" rowHeight="2:2" gutterSize="10px">
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Experience level</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-form-field appearance="outline">
+                  <mat-select formControlName="experience_level">
+                    <mat-option *ngFor="let experience of experienceLevels" [value]="experience">{{ experience }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Job type</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-form-field appearance="outline">
+                  <mat-select formControlName="job_type">
+                    <mat-option *ngFor="let type of jobTypes" [value]="type">{{ type }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Study level</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-form-field appearance="outline">
+                  <mat-select formControlName="study_level">
+                    <mat-option *ngFor="let study of studyLevels" [value]="study">{{ study }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="3" [rowspan]="1">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Location</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="location">
+                </mat-form-field>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="3" [rowspan]="1">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Salary</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="salary">
+                </mat-form-field>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list>
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
@@ -75,15 +144,18 @@
     <mat-step [stepControl]="editJobOfferFormThird" label="Fill out your requirements" state="edit">
       <form [formGroup]="editJobOfferFormThird">
         <h3>Requirements</h3>
-        <div formArrayName="requirements">
+        <mat-grid-list cols="3" rowHeight="2:1" gutterSize="10px" formArrayName="requirements">
           <div *ngFor="let req of requirements.controls; let i = index" [formGroupName]="i">
-            <mat-form-field class="full-width">
-              <mat-label>Requirement {{ i + 1 }}</mat-label>
-              <textarea matInput formControlName="requirement"></textarea>
-            </mat-form-field>
-            <button mat-button color="warn" (click)="removeRequirement(i)">Remove</button>
+            <mat-grid-tile>
+              <mat-form-field appearance="outline" class="requirements">
+                <textarea matInput formControlName="requirement"></textarea>
+              </mat-form-field>
+              <button mat-button color="warn" (click)="removeRequirement(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-grid-tile>
           </div>
-        </div>
+        </mat-grid-list>
         <button mat-button (click)="addRequirement()">Add Requirement</button>
         <div>
           <button mat-button matStepperPrevious>Back</button>
@@ -93,10 +165,11 @@
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Done</ng-template>
-      <p>You are done</p>
+      <h1>You are almost done!</h1>
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button (click)="onDiscard()">Discard</button>
+        <button mat-button (click)="onSave()">{{ isEditMode ? 'Save changes' : 'Create job offer' }}</button>
       </div>
     </mat-step>
     <ng-template matStepperIcon="edit">
@@ -106,7 +179,3 @@
     </ng-template>
   </mat-stepper>
 </div>
-<!--<div mat-dialog-actions>-->
-<!--  <button mat-button (click)="onDiscard()">Discard</button>-->
-<!--  <button mat-button (click)="onSave()">{{ isEditMode ? 'Save' : 'Create' }}</button>-->
-<!--</div>-->
