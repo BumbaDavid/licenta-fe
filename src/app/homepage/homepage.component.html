@@ -29,8 +29,7 @@
     <p>{{ nrJoburiDisponibile }} joburi disponibile</p> <!-- Update dynamically if needed -->
   </div>
   <div class="job-category-container">
-    <div *ngFor="let category of categories" class="category-card">
-      <img [src]="category.image" alt="{{ category.name }}">
+    <div *ngFor="let category of randomJobCategories" (click)="onCardClick(category.name)" class="category-card">
       <div class="category-title">{{ category.name }}</div>
       <ul>
         <li *ngFor="let job of category.jobs">{{ job }}</li>
@@ -38,15 +37,14 @@
     </div>
   </div>
   <div class="category-header">
-    <h2>Alege-ți jobul în funcție de departament</h2>
+    <h2>Alege-ți jobul în funcție de oras</h2>
     <p>{{ nrJoburiDisponibile }} joburi disponibile</p> <!-- Update dynamically if needed -->
   </div>
   <div class="job-category-container">
-    <div *ngFor="let category of categories" class="category-card">
-      <img [src]="category.image" alt="{{ category.name }}">
-      <div class="category-title">{{ category.name }}</div>
+    <div *ngFor="let location of randomJobLocations" (click)="onLocationCardClick(location.name)" class="category-card">
+      <div class="category-title">{{ location.name }}</div>
       <ul>
-        <li *ngFor="let job of category.jobs">{{ job }}</li>
+        <li *ngFor="let job of location.jobs">{{ job }}</li>
       </ul>
     </div>
   </div>
@@ -60,11 +58,11 @@
 
   <!-- Promoted Jobs Cards Grid -->
   <div class="promoted-jobs-grid">
-    <div class="promoted-job-card" *ngFor="let job of promotedJobs">
-      <div class="promoted-job-date">{{ job.date | date: 'dd MMM yyyy' }}</div>
-      <img [src]="job.logo" alt="{{ job.company }}" class="promoted-job-logo">
-      <div class="promoted-job-title">{{ job.title }}</div>
-      <div class="promoted-job-company">{{ job.company }}</div>
+    <div class="promoted-job-card" *ngFor="let job of randomJobs" [routerLink]="['/job-details',job.id]">
+      <div class="promoted-job-date">{{ job.location }}</div>
+      <div class="promoted-job-title">{{ job?.company?.company_name }}</div>
+      <div class="promoted-job-company">{{ job?.job_title }}</div>
+      <div class="promoted-job-company"> {{ job?.job_category}}</div>
     </div>
   </div>
 </div>

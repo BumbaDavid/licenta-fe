@@ -8,11 +8,10 @@ import {AddItemDialogComponent} from "./add-item-dialog/add-item-dialog.componen
 import {MatDialog} from "@angular/material/dialog";
 import {UserCvService} from "../services/user-cv.service";
 import {JobOffersService} from "../services/job-offers.service";
-import {Observable} from "rxjs";
 import {UserCvCardComponent} from "../user-cv-card/user-cv-card.component";
 
 export enum Tab {
-  PROFILE, CV, JOB_REQUESTS, CLOSE_ACCOUNT
+  PROFILE, CV, JOB_REQUESTS, CLOSE_ACCOUNT, JOB_ASSISTANT
 }
 @Component({
   selector: 'app-user-account',

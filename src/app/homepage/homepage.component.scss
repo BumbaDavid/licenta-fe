@@ -84,6 +84,7 @@ html {
 
 .category-card {
   width: 250px; // Set a fixed width for each card
+  min-height: 160px;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -10,6 +10,7 @@ export class JobOffersService {
 
   private jobOffersUrl = 'http://127.0.0.1:8000/api/v1/jobOffers/'
   private jobOffersUrlBypass = 'http://127.0.0.1:8000/api/v1/jobOffers/?all=true&bypass_auth=true'
+  private jobsSearchBarUrl = 'http://127.0.0.1:8000/api/v1/jobOffers/get-search-bar-jobs/?all=true&bypass_auth=true';
   constructor(private http: HttpClient) { }
 
   createJobOffer(username: string, data: any): Observable<any>{
@@ -133,6 +134,18 @@ export class JobOffersService {
   getFilteredJobs(query: string): Observable<any> {
     return this.http.get<any>(`${this.jobOffersUrlBypass}&${query}`).pipe(
       catchError(handleError<any>('getFilteredJobs'))
+    )
+  }
+
+  getRandomJobs(): Observable<any> {
+    return this.http.get<any>(`${this.jobOffersUrlBypass}&random=true`).pipe(
+      catchError(handleError<any>('getRandomJobs'))
+    )
+  }
+
+  searchBarJobs(query: any): Observable<any>{
+    return this.http.post<any>(this.jobsSearchBarUrl, query).pipe(
+      catchError(handleError<any>('searchBarJobs'))
     )
   }
 }

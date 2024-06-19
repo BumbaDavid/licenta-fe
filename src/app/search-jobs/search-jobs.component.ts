@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {JobOffersService} from "../services/job-offers.service";
 import {Filter, JobCards} from "../models/models";
 import {cities, experience_level, job_category, job_position, job_type, study_level} from "../models/filter-models";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ViewportScroller} from "@angular/common";
 
 @Component({
@@ -40,16 +40,58 @@ export class SearchJobsComponent implements OnInit{
     experience_level: []
   }
   constructor(private jobService: JobOffersService,
+              private route: ActivatedRoute,
               private router: Router,
               private viewportScroller: ViewportScroller) { }
 
   ngOnInit() {
     this.getAllJobs()
+    this.route.queryParams.subscribe(params => {
+      this.handleFilterParams(params);
+    });
   }
 
   searchJobs() {
-    console.log('Searching for:', this.searchQuery);
-    // Implement your search logic here
+    let query = {
+      "text_input" : this.searchQuery
+    }
+    console.log('Searching for:', query);
+    this.jobService.searchBarJobs(query).subscribe({
+      next: (searchBarJobs) => {
+        console.log(searchBarJobs)
+        if(searchBarJobs.meta){
+          this.pageLimit = searchBarJobs.meta.limit;
+          this.nextPage = searchBarJobs.meta?.next;
+          this.previousPage = searchBarJobs.meta?.previous;
+          this.updateTotalPages(searchBarJobs.meta.total_count)
+        }
+        this.jobs = searchBarJobs.objects.map((job: any) => ({
+          id: job.id,
+          job_title: job.job_position,
+          job_description: this.truncateDescription(job.job_description),
+          job_location: job.location,
+          company_name: job.company.company_name
+        }))
+        console.log(this.jobs)
+      },
+      error: error => console.error(error)
+
+    })
+
+  }
+
+  handleFilterParams(params: any) {
+    // Reset filters
+    Object.keys(this.allFilters).forEach(key => this.allFilters[key] = []);
+
+    if (params['category']) {
+      this.allFilters['job_category'].push({ category: 'job_category', query: params['category'], name: params['category'] });
+    }
+    if (params['location']) {
+      this.allFilters['location'].push({ category: 'location', query: params['location'], name: params['location'] });
+    }
+
+    this.fetchFilteredJobs();
   }
 
   getAllJobs() {
@@ -116,9 +158,11 @@ export class SearchJobsComponent implements OnInit{
   }
 
 
-  fetchFilteredJobs(offset?: any) {
+  fetchFilteredJobs(offset?: any, param? : any) {
     const queryParams = this.buildQueryParams();
     const queryParamsOffset = queryParams.concat(`offset=${offset}`)
+
+
 
     this.jobService.getFilteredJobs(offset ? queryParamsOffset : queryParams).subscribe({
       next: filteredJobs => {

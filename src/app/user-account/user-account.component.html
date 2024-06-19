@@ -9,16 +9,22 @@
             [ngClass]="{'active': openedTab === tab.CV}">CV</button>
             <button class="top-buttons" mat-raised-button (click)="changeTab(tab.JOB_REQUESTS)"
             [ngClass]="{'active': openedTab === tab.JOB_REQUESTS}">Job Requests</button>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="button-group">
+            <button class="top-buttons" mat-raised-button (click)="changeTab(tab.JOB_ASSISTANT)"
+                    [ngClass]="{'active': openedTab === tab.JOB_ASSISTANT }">Job Assistant</button>
             <button class="top-buttons" mat-raised-button (click)="openCV()">See CV</button>
           </div>
         </mat-grid-tile>
-      <mat-grid-tile [rowspan]="2"></mat-grid-tile>
-        <mat-grid-tile>
-          <div class="button-group ">
-            <button class="bottom-buttons" mat-raised-button (click)="changeTab(tab.CLOSE_ACCOUNT)">Close Account</button>
-            <button class="bottom-buttons" mat-raised-button (click)="logout()">Log-out</button>
-          </div>
-        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="2"></mat-grid-tile>
+          <mat-grid-tile>
+            <div class="button-group ">
+              <button class="bottom-buttons" mat-raised-button (click)="changeTab(tab.CLOSE_ACCOUNT)">Close Account</button>
+              <button class="bottom-buttons" mat-raised-button (click)="logout()">Log-out</button>
+            </div>
+          </mat-grid-tile>
       </mat-grid-list>
     </mat-drawer>
 
@@ -128,6 +134,18 @@
           </mat-expansion-panel>
         </mat-accordion>
       </form>
+
+<!--      JOB ASSISTANT-->
+      <div>
+        <mat-form-field>
+          <button mat-raised-button>Yes</button>
+          <button mat-raised-button>No</button>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="">
+          </mat-form-field>
+        </mat-form-field>
+      </div>
+
     </mat-drawer-content>
 </mat-drawer-container>
 
