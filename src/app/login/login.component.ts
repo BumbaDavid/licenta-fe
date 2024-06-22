@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
     this.loginTab = !this.loginTab;
   }
 
-  submit() {
+  login() {
     if (this.form.valid) {
       const { username, password } = this.form.value;
       this.authService.login(username, password).subscribe(
@@ -69,9 +69,11 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('username', username)
             localStorage.setItem('account_type', account_type)
 
-            this.router.navigate(['/homepage']).then(() => console.log('navigation to route successful'))
+            this.router.navigate(['/homepage']).then(() =>
+              console.log('navigation to route successful'))
           } else {
-            console.error('login failed with the following error : ', response.statusText)
+            console.error('login failed with the following error : ',
+              response.statusText)
           }
         });
     }

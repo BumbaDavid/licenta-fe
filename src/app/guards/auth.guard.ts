@@ -18,7 +18,8 @@ export class AuthGuard implements CanActivate {
          if(valid)
            return true;
          else {
-           this.router.navigate(['/login']).then(()=>console.log("invalid api key",apiKey))
+           this.router.navigate(['/login']).then(()=>
+             console.log("invalid api key",apiKey))
            return false;
          }
        })

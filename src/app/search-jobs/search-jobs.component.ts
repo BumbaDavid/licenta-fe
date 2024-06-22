@@ -134,7 +134,8 @@ export class SearchJobsComponent implements OnInit{
     if (isChecked) {
       this.allFilters[filter.category].push(filter)
     } else {
-      this.allFilters[filter.category] = this.allFilters[filter.category].filter(f => f.query !== filter.query)
+      this.allFilters[filter.category] = this.allFilters[filter.category]
+                                                .filter(f => f.query !== filter.query)
     }
     this.fetchFilteredJobs();
   }
@@ -158,11 +159,9 @@ export class SearchJobsComponent implements OnInit{
   }
 
 
-  fetchFilteredJobs(offset?: any, param? : any) {
+  fetchFilteredJobs(offset?: any) {
     const queryParams = this.buildQueryParams();
     const queryParamsOffset = queryParams.concat(`offset=${offset}`)
-
-
 
     this.jobService.getFilteredJobs(offset ? queryParamsOffset : queryParams).subscribe({
       next: filteredJobs => {
@@ -182,7 +181,6 @@ export class SearchJobsComponent implements OnInit{
         )},
       error: error => console.error("Error fetching filtered data", error)
     });
-    console.log(this.jobs)
   }
 
   updateTotalPages(totalCount: number) {

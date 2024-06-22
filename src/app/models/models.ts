@@ -195,3 +195,8 @@ export const ExperienceLevels: string[] = [
   "executiv"
 ];
 
+export interface LoginData {
+  api_key?: string,
+  username?: string,
+  account_type?: string
+}

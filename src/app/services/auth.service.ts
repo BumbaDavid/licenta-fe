@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {catchError, map, Observable, of, switchMap} from "rxjs";
 import {Router} from "@angular/router";
+import {LoginData} from "../models/models";
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +18,13 @@ export class AuthService {
 
   login(username: any, password: any): Observable<HttpResponse<any>> {
     const body = {username, password}
-    return this.http.post<{data: { api_key: string, username: string, account_type: string }}>(
+    return this.http.post<{data: LoginData}>(
       this.loginUrl,
       body,
       {observe: 'response'}
     ).pipe(
-      map(response => response as HttpResponse<{ data: { api_key: string, username: string, account_type: string } }>), // Ensure correct type
-      catchError(this.handleError<HttpResponse<{ data: { api_key: string, username: string, account_type: string } }>>('login'))
+      map(response => response as HttpResponse<{ data: LoginData }>),
+      catchError(this.handleError<HttpResponse<{ data: LoginData }>>('login'))
     );
   }
 
