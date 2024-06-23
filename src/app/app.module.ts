@@ -21,6 +21,7 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
 import { FilterCitiesPipe } from './pipes/filter-input.pipe';
 import { LayoutComponent } from './layout/layout.component';
 import { UserCvCardComponent } from './user-cv-card/user-cv-card.component';
+import { ConfirmationDialogComponent } from './user-account/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { UserCvCardComponent } from './user-cv-card/user-cv-card.component';
     EditJobOfferDialogComponent,
     FilterCitiesPipe,
     LayoutComponent,
-    UserCvCardComponent
+    UserCvCardComponent,
+    ConfirmationDialogComponent
   ],
     imports: [
         BrowserModule,

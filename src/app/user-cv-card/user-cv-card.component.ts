@@ -17,9 +17,4 @@ export class UserCvCardComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.userCVData)
   }
-
-  onExit() {
-    this.dialogRef.close();
-  }
-
 }

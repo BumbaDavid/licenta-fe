@@ -20,6 +20,7 @@ export class SearchJobsComponent implements OnInit{
   public study_level: Filter[] = study_level;
   public job_category: Filter[] = job_category;
   public job_position: Filter[] = job_position;
+  public filterCategories: any;
 
   filterTextCities = '';
   filterTextDepartment = '';
@@ -48,6 +49,12 @@ export class SearchJobsComponent implements OnInit{
     this.getAllJobs()
     this.route.queryParams.subscribe(params => {
       this.handleFilterParams(params);
+
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: {},
+        replaceUrl: true  // This replaces the current state in history, so no back button to params
+      });
     });
   }
 
@@ -55,10 +62,8 @@ export class SearchJobsComponent implements OnInit{
     let query = {
       "text_input" : this.searchQuery
     }
-    console.log('Searching for:', query);
     this.jobService.searchBarJobs(query).subscribe({
       next: (searchBarJobs) => {
-        console.log(searchBarJobs)
         if(searchBarJobs.meta){
           this.pageLimit = searchBarJobs.meta.limit;
           this.nextPage = searchBarJobs.meta?.next;
@@ -72,10 +77,8 @@ export class SearchJobsComponent implements OnInit{
           job_location: job.location,
           company_name: job.company.company_name
         }))
-        console.log(this.jobs)
       },
       error: error => console.error(error)
-
     })
 
   }
@@ -97,7 +100,6 @@ export class SearchJobsComponent implements OnInit{
   getAllJobs() {
     this.jobService.getAllJobs().subscribe({
       next: (data) => {
-        console.log(data)
         if(data.meta){
           this.pageLimit = data.meta.limit;
           this.nextPage = data.meta?.next;
@@ -111,7 +113,6 @@ export class SearchJobsComponent implements OnInit{
           job_location: job.location,
           company_name: job.company.company_name
         }))
-        console.log(this.jobs)
       },
       error: error => console.error(error)
     })
@@ -137,6 +138,7 @@ export class SearchJobsComponent implements OnInit{
       this.allFilters[filter.category] = this.allFilters[filter.category]
                                                 .filter(f => f.query !== filter.query)
     }
+    this.filterCategories = Object.keys(this.allFilters)
     this.fetchFilteredJobs();
   }
 

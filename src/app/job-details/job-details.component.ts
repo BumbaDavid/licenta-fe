@@ -23,9 +23,9 @@ export class JobDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      this.account_type = localStorage.getItem("account_type")
+    this.account_type = localStorage.getItem("account_type")
+    this.jobId = this.route.snapshot.paramMap.get('id');
 
-     this.jobId = this.route.snapshot.paramMap.get('id');
     if (this.jobId) {
       this.jobOffersService.getJobOfferById(this.jobId).subscribe({
         next: data => {
@@ -34,7 +34,6 @@ export class JobDetailsComponent implements OnInit {
           this.experienceLevel = data?.experience_level ? ExperienceLevelMapping[data?.experience_level] : " Unkown Experience Level";
 
           this.jobOffer = data;
-          console.log(this.jobOffer)
         },
         error: error => console.error("error retrieving job offer", error)
       })

@@ -21,7 +21,7 @@
         <mat-grid-tile [rowspan]="2"></mat-grid-tile>
           <mat-grid-tile>
             <div class="button-group ">
-              <button class="bottom-buttons" mat-raised-button (click)="changeTab(tab.CLOSE_ACCOUNT)">Close Account</button>
+              <button class="bottom-buttons" mat-raised-button (click)="closeAccount()">Close Account</button>
               <button class="bottom-buttons" mat-raised-button (click)="logout()">Log-out</button>
             </div>
           </mat-grid-tile>
@@ -136,14 +136,60 @@
       </form>
 
 <!--      JOB ASSISTANT-->
-      <div>
-        <mat-form-field>
-          <button mat-raised-button>Yes</button>
-          <button mat-raised-button>No</button>
-          <mat-form-field appearance="outline">
-            <input matInput placeholder="">
-          </mat-form-field>
-        </mat-form-field>
+      <div *ngIf="openedTab === tab.JOB_ASSISTANT">
+        <mat-grid-list cols="3"  rowHeight="1:1.5" class="grid-list" *ngIf="openedAssistantTab !== assistantTab.RECOMMENDATIONS">
+          <mat-grid-tile>
+            <div *ngIf="openedAssistantTab === assistantTab.CHOICE" class="assistant-intro">
+              <h2>Hello, I am PathFinder, your assistant.
+                  I am here to help you find job offers.
+                  Would you like to use your own CV,
+                  or perhaps you'd like to give me a custom text?</h2>
+              <button mat-raised-button  class="assistant-buttons" (click)="searchForJobs()">Yes, use CV</button>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="assistant-tab">
+              <img src="assets/PathFinder_choose.png" alt="PathFinerChoose" class="pathfinder-img">
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <button *ngIf="openedAssistantTab === assistantTab.CHOICE" mat-raised-button class="assistant-buttons" (click)="onUserSelect(assistantTab.TEXT)">No, use text</button>
+            <div *ngIf="openedAssistantTab === assistantTab.TEXT" class="assistant-text-choice">
+              <h2>Input your text here!</h2>
+              <div class="company-description-textarea">
+                <mat-form-field>
+                  <textarea matInput [(ngModel)]="textQuery"></textarea>
+                </mat-form-field>
+              </div>
+              <button mat-raised-button class="assistant-buttons" (click)="searchForJobs()" [disabled]="textQuery.length === 0" >Search jobs!</button>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list cols="2" rowHeight="1:1" *ngIf="openedAssistantTab === assistantTab.RECOMMENDATIONS">
+          <mat-grid-tile>
+            <div class="recommendation-tab">
+              <div class="recommendations-list">
+                <mat-card *ngFor="let recommendation of recommendations" class="recommendation-card">
+                  <mat-card-header>
+                    <mat-card-title>{{ recommendation.job_title }}</mat-card-title>
+                    <mat-card-subtitle>{{ recommendation.location }}</mat-card-subtitle>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <p>{{ recommendation.job_category }} - {{ recommendation.job_type}}</p>
+                  </mat-card-content>
+                  <mat-card-actions >
+                    <button mat-button [routerLink]="['/job-details',recommendation.id]">See Job offer page</button>
+                  </mat-card-actions>
+                </mat-card>
+              </div>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="assistant-tab">
+              <img src="assets/PathFinder_list.png" alt="PathFinerChoose" class="pathfinder-img">
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
       </div>
 
     </mat-drawer-content>

@@ -9,9 +9,16 @@ import {MatDialog} from "@angular/material/dialog";
 import {UserCvService} from "../services/user-cv.service";
 import {JobOffersService} from "../services/job-offers.service";
 import {UserCvCardComponent} from "../user-cv-card/user-cv-card.component";
+import {ConfirmationDialogComponent} from "./confirmation-dialog/confirmation-dialog.component";
+import {ChatbotService} from "../services/chatbot.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 export enum Tab {
   PROFILE, CV, JOB_REQUESTS, CLOSE_ACCOUNT, JOB_ASSISTANT
+}
+
+export enum JobAssistant {
+  CHOICE, CV, TEXT, RECOMMENDATIONS
 }
 @Component({
   selector: 'app-user-account',
@@ -20,17 +27,28 @@ export enum Tab {
 })
 export class UserAccountComponent implements OnInit {
   public tab = Tab;
+  public assistantTab = JobAssistant;
+  userId : any;
+
+  textQuery: string = "";
   initialFormValues: any;
   profileForm: FormGroup;
   isEditing: boolean = false;
   cvCategories: any[] | undefined;
   appliedJobs: any[] | undefined;
+  recommendations: any[] | undefined;
+
+  objectToSend = {};
 
   openedTab: Tab | undefined;
+  openedAssistantTab: JobAssistant | undefined;
+
   constructor(private authService: AuthService,
               private accountService: AccountService,
               private userCVService: UserCvService,
               private jobOfferService: JobOffersService,
+              private chatBotService: ChatbotService,
+              private _snackBar: MatSnackBar,
               private router: Router,
               private fb: FormBuilder,
               private dialog: MatDialog) {
@@ -51,6 +69,7 @@ export class UserAccountComponent implements OnInit {
     this.openedTab = lastTab ? Number(lastTab) : Tab.PROFILE;
     this.getUserData();
     this.getAppliedJobs();
+    this.openedAssistantTab = JobAssistant.CHOICE;
   }
 
   changeTab(newTab: Tab) {
@@ -65,7 +84,6 @@ export class UserAccountComponent implements OnInit {
       localStorage.removeItem('lastOpenedTab')
       this.router.navigate(['/homepage']).then(() => {
         window.location.reload()
-        console.log('logout successful')
       })
     })
   }
@@ -84,11 +102,9 @@ export class UserAccountComponent implements OnInit {
         date_joined: data?.date_joined,
         age: data?.user?.age
       })
+      this.userId = data?.user_id
       this.initialFormValues = this.profileForm.getRawValue();
       this.updateUserCVCategories(data)
-
-      console.log(this.cvCategories)
-      console.log(this.initialFormValues)
     },
      error: error => console.error('error fetching data', error)
   });
@@ -126,8 +142,16 @@ export class UserAccountComponent implements OnInit {
           this.isEditing = false;
           this.profileForm.disable();
           this.initialFormValues = this.profileForm.getRawValue();
+
+          this._snackBar.open("Profile updated successfully", 'Cancel', {
+            duration: 3000,
+          })
         },
-        error: error => console.error("error updating data", error)
+        error: () => {
+          this._snackBar.open("Error trying to update profile", 'Cancel', {
+            duration: 3000,
+          })
+        }
       });
     }
   }
@@ -144,29 +168,58 @@ export class UserAccountComponent implements OnInit {
           next: data => {
             this.updateUserCVCategories(data)
             this.getUserData()
+
+            this._snackBar.open("New entry added to CV", 'Cancel', {
+              duration: 3000,
+            })
           },
-          error: error => console.error("error updating data", error)
+          error: () => {
+            this._snackBar.open("Error trying to add new entry", 'Cancel', {
+              duration: 3000,
+            })
+          }
         });
       }
     });
   }
 
   deleteItem(categoryEntry: string, categoryTitle: string): void {
-    let entryToDelete: ExportData = {
-      action: 'delete',
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '300px',
       data: {
-        [categoryTitle] : [categoryEntry]
+        categoryTitle,
+        categoryEntry,
+        title: 'Confirm Delete',
+        message: 'Are you sure you want to delete this entry?'
       }
-    }
-    if(entryToDelete) {
-      this.userCVService.deleteCVEntry(entryToDelete).subscribe({
-        next: data => {
-          this.updateUserCVCategories(data)
-          this.getUserData()
-        },
-        error: error => console.error("error updating data", error)
-      });
-    }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        let entryToDelete: ExportData = {
+          action: 'delete',
+          data: {
+            [categoryTitle] : [categoryEntry],
+          }
+        }
+        if(entryToDelete) {
+          this.userCVService.deleteCVEntry(entryToDelete).subscribe({
+            next: data => {
+              this.updateUserCVCategories(data)
+              this.getUserData()
+              this._snackBar.open("CV entry deleted successfully", 'Cancel', {
+                duration: 3000,
+              })
+            },
+            error: () => {
+              this._snackBar.open("Error trying to delete CV entry", 'Cancel', {
+                duration: 3000,
+              })
+            }
+          });
+        }
+      }
+    })
   }
 
   updateUserCVCategories(data: any) {
@@ -189,11 +242,30 @@ export class UserAccountComponent implements OnInit {
   }
 
   cancelApplication(jobId: number): void {
-    this.jobOfferService.cancelApplication(jobId).subscribe({
-      next: () => {
-        this.getAppliedJobs();
-      },
-      error: (error:any) => console.error('error canceling application', error)
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '300px',
+      data: {
+        title: 'Confirm Cancellation',
+        message: 'Are you sure you want to cancel your job application?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.jobOfferService.cancelApplication(jobId).subscribe({
+          next: () => {
+            this.getAppliedJobs();
+            this._snackBar.open("Canceled job application", 'Cancel', {
+              duration: 3000,
+            })
+          },
+          error: () => {
+            this._snackBar.open("Error while trying to cancel job application", 'Cancel', {
+              duration: 3000,
+            })
+          }
+        })
+      }
     })
   }
 
@@ -210,4 +282,71 @@ export class UserAccountComponent implements OnInit {
     })
   }
 
+  onUserSelect(choice: JobAssistant) {
+    if(choice === JobAssistant.CV) {
+      this.openedAssistantTab = choice;
+
+    } else if(choice === JobAssistant.TEXT) {
+      this.openedAssistantTab = choice;
+    }
+  }
+
+  searchForJobs() {
+    if(this.openedAssistantTab !== this.assistantTab.TEXT){
+      this.objectToSend = {
+        "response": "yes"
+      }
+    } else if(this.openedAssistantTab === this.assistantTab.TEXT){
+      this.objectToSend = {
+        "response": "no",
+        "text_input": this.textQuery
+      }
+    }
+    this.chatBotService.geJobRecommendations(this.objectToSend).subscribe({
+      next: (response) => {
+        if(response.status === 200) {
+          this.recommendations = response.body?.jobs
+          this.openedAssistantTab = this.assistantTab.RECOMMENDATIONS
+        }
+      },
+      error: () => {
+        this._snackBar.open("Error while trying to fetch job recommendations", 'Cancel', {
+          duration: 3000,
+        })
+      }
+    })
+
+  }
+
+  closeAccount() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '300px',
+      data: {
+        title: 'Confirm Cancellation',
+        message: 'Are you sure you want to cancel your job application?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+       this.accountService.deleteUser(this.userId).subscribe({
+           next: () => {
+             localStorage.clear()
+             this.router.navigate(['/homepage']).then(() => {
+               window.location.reload()
+             })
+             this._snackBar.open("Account closed successfully", 'Cancel', {
+               duration: 3000,
+             })
+           },
+         error: () => {
+           this._snackBar.open("Error while trying to close account", 'Cancel', {
+             duration: 3000,
+           })
+         }
+         }
+       )
+      }
+    })
+  }
 }

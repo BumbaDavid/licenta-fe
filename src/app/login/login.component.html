@@ -14,9 +14,7 @@
             <input type="password" matInput placeholder="Password" formControlName="password">
           </mat-form-field>
         </p>
-        <p *ngIf="errorLog" class="error">
-          {{ errorLog }}
-        </p>
+        <p *ngIf="loginError" class="error">{{ loginError }}</p>
         <div class="button">
           <button type="submit" mat-button>Login</button>
         </div>
@@ -83,7 +81,7 @@
           </p>
         </div>
         <div class="button">
-          <button type="submit" mat-button>Create account</button>
+          <button type="submit" mat-button [disabled]="!registerForm.valid">Create account</button>
         </div>
         <p class="register-login-prompt">
           Already have an account? <a (click)="changeTab()">Login here!</a>

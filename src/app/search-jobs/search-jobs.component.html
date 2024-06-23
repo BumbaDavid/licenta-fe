@@ -11,6 +11,23 @@
     <mat-drawer-container class="content">
       <mat-drawer mode="side" opened>
         <div class="filters">
+
+          <mat-card class="filter-card">
+            <mat-card-header>
+              <mat-card-title>Active Filters</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-chip-list>
+                <ng-container *ngFor="let category of filterCategories">
+                  <mat-chip *ngFor="let filter of allFilters[category]" (click)="onFilterChange(filter, false)" removable="true">
+                    {{ filter.name }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </ng-container>
+              </mat-chip-list>
+            </mat-card-content>
+          </mat-card>
+
           <mat-card class="filter-card">
             <mat-card-header>
               <mat-card-title>Job Type</mat-card-title>

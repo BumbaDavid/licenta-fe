@@ -8,6 +8,7 @@ import {handleError} from "../../handle-error";
 })
 export class AccountService {
 
+  private userUrl = 'http://localhost:8000/api/v1/userLogin/';
   private updateUserUrl = 'http://localhost:8000/api/v1/userLogin/update-user/';
   private userDataUrl = 'http://127.0.0.1:8000/api/v1/userLogin/user-data/';
   constructor(private http: HttpClient) { }
@@ -38,6 +39,22 @@ export class AccountService {
     } else {
       return of();
     }
+  }
+
+  deleteUser(userId: any): Observable<any> {
+   if(userId) {
+     const username = localStorage.getItem('username')
+     const api_key = localStorage.getItem('api_key')
+     const headers = new HttpHeaders({
+       'Authorization': `ApiKey ${username}:${api_key}`
+     })
+
+     return this.http.delete(`${this.userUrl}${userId}`, {headers}).pipe(
+       catchError(handleError<any>('deleteUser'))
+     )
+   } else {
+     return of()
+   }
   }
 
 

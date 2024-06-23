@@ -19,6 +19,8 @@ import {RegistrationData} from "../models/models";
 export class LoginComponent implements OnInit {
   loginTab: boolean = true;
   error: string | null | undefined;
+  loginError: string | null | undefined;
+
   form: FormGroup = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
@@ -26,7 +28,6 @@ export class LoginComponent implements OnInit {
 
   registerForm: FormGroup;
 
-  @Input() errorLog: string | null | undefined;
   @Output() submitEM = new EventEmitter();
 
   constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {
@@ -59,10 +60,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.loginError = null;
     if (this.form.valid) {
       const { username, password } = this.form.value;
-      this.authService.login(username, password).subscribe(
-        response => {
+      this.authService.login(username, password).subscribe({
+        next: (response) => {
           if (response.status === 202) {
             const { api_key, username, account_type } = response.body.data;
             localStorage.setItem('api_key', api_key)
@@ -71,11 +73,13 @@ export class LoginComponent implements OnInit {
 
             this.router.navigate(['/homepage']).then(() =>
               console.log('navigation to route successful'))
-          } else {
-            console.error('login failed with the following error : ',
-              response.statusText)
           }
-        });
+        },
+        error: (error) => {
+          this.loginError = "*Username or password incorrect";
+          console.log(this.loginError)
+        }
+      });
     }
   }
  submitRegister() {

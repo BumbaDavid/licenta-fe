@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
-import {catchError, map, Observable, of, switchMap} from "rxjs";
+import {catchError, map, Observable, of, switchMap, throwError} from "rxjs";
 import {Router} from "@angular/router";
 import {LoginData} from "../models/models";
 
@@ -56,7 +56,7 @@ export class AuthService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);
-      return of(result as T);
+      return throwError(() => new Error(`${operation} failed: ${error.message}`));
     }
   }
 

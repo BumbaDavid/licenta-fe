@@ -19,7 +19,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatListModule} from "@angular/material/list";
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 const MaterialComponent =[
   MatCardModule,
@@ -43,6 +43,7 @@ const MaterialComponent =[
   MatDividerModule,
   MatStepperModule,
   MatListModule,
+  MatSnackBarModule
 ];
 
 @NgModule({

@@ -14,7 +14,7 @@
       <mat-grid-tile [rowspan]="4"></mat-grid-tile>
       <mat-grid-tile>
         <div class="button-group ">
-          <button class="bottom-buttons" mat-raised-button (click)="changeTab(tab.CLOSE_ACCOUNT)" color="warn">Close Account</button>
+          <button class="bottom-buttons" mat-raised-button (click)="closeAccount()" color="warn">Close Account</button>
           <button class="bottom-buttons" mat-raised-button (click)="logout()" color="warn">Log-out</button>
         </div>
       </mat-grid-tile>
@@ -50,6 +50,11 @@
             <mat-form-field appearance="outline">
               <input matInput formControlName="phone">
           </mat-form-field></td>
+          <td>
+            <h3>Contact Email</h3>
+            <mat-form-field appearance="outline">
+              <input matInput formControlName="contact_email">
+            </mat-form-field></td>
         </tr></table>
 
         <h1 class="company-description">Company description</h1>
@@ -104,7 +109,7 @@
             <p>{{ application?.applicant?.user?.first_name}} {{ application?.applicant?.user?.last_name}} applied for the {{ application?.job_offer?.job_position }} position</p>
           </mat-card-content>
           <mat-card-actions class="job-offer-actions">
-            <button mat-button >See applicant CV</button>
+            <button mat-button (click)="seeApplicantCV(application)">See applicant CV</button>
             <button mat-button [routerLink]="['/job-details',application?.job_offer?.id]">See Job offer page</button>
             <button mat-button >Actions</button>
           </mat-card-actions>
